@@ -1,12 +1,16 @@
-package com.laomn.example.mongodb;
+package com.laomn.example.mongodb.dao;
 
+import javax.annotation.Resource;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
+import com.laomn.example.mongodb.enties.DemoEntity;
+import com.mongodb.ReadPreference;
 
 /**
  * 描述: Demo DAO 实现
@@ -15,22 +19,22 @@ import javax.annotation.Resource;
  * @create 2018-02-03 16:57
  **/
 @Component
-public class DemoDaoImpl implements DemoDao {
+public class DemoDao   {
 
-    @Resource
+    @Autowired
     private MongoTemplate mongoTemplate;
 
-    @Override
+    
     public void saveDemo(DemoEntity demoEntity) {
         mongoTemplate.save(demoEntity);
     }
 
-    @Override
+    
     public void removeDemo(Long id) {
         mongoTemplate.remove(id);
     }
 
-    @Override
+    
     public void updateDemo(DemoEntity demoEntity) {
         Query query = new Query(Criteria.where("id").is(demoEntity.getId()));
 
@@ -43,7 +47,7 @@ public class DemoDaoImpl implements DemoDao {
         mongoTemplate.updateFirst(query, update, DemoEntity.class);
     }
 
-    @Override
+    
     public DemoEntity findDemoById(Long id) {
         Query query = new Query(Criteria.where("id").is(id));
         DemoEntity demoEntity = mongoTemplate.findOne(query, DemoEntity.class);

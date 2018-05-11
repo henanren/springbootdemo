@@ -1,15 +1,14 @@
 package com.laomn.example.mongodb;
 
-import com.alibaba.fastjson.JSONObject;
-import com.laomn.example.mongodb.DemoDao;
-import com.laomn.example.mongodb.DemoEntity;
-import com.laomn.example.mongodb.SpringBootMongodbApplication;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import com.alibaba.fastjson.JSONObject;
+import com.laomn.example.mongodb.dao.DemoDao;
+import com.laomn.example.mongodb.enties.DemoEntity;
 
 /**
  * 描述: 单元测试
@@ -24,9 +23,9 @@ public class SpringBootMongodbApplicationTests {
     @Autowired
     private DemoDao demoDao;
 
-    @Test
+//    @Test
     public void saveDemoTest() {
-
+    	System.err.println("插入=====");
         DemoEntity demoEntity = new DemoEntity();
         demoEntity.setId(1L);
         demoEntity.setTitle("Spring Boot 中使用 MongoDB");
@@ -46,12 +45,12 @@ public class SpringBootMongodbApplicationTests {
         demoDao.saveDemo(demoEntity);
     }
 
-    @Test
+//    @Test
     public void removeDemoTest() {
         demoDao.removeDemo(2L);
     }
 
-    @Test
+//    @Test
     public void updateDemoTest() {
 
         DemoEntity demoEntity = new DemoEntity();
@@ -66,6 +65,7 @@ public class SpringBootMongodbApplicationTests {
 
     @Test
     public void findDemoByIdTest() {
+    	System.err.println("查询=====");
 
         DemoEntity demoEntity = demoDao.findDemoById(1L);
 

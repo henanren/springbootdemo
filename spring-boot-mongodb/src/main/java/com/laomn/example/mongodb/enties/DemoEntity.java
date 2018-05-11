@@ -1,4 +1,4 @@
-package com.laomn.example.mongodb;
+package com.laomn.example.mongodb.enties;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.CompoundIndex;
