@@ -1,4 +1,4 @@
-package io.ymq.example.mongodb;
+package com.laomn.example.mongodb;
 
 /**
  * 描述: 提供增删改查 MongoDB 接口

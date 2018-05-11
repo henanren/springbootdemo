@@ -1,6 +1,10 @@
-package io.ymq.example.mongodb;
+package com.laomn.example.mongodb;
 
 import com.alibaba.fastjson.JSONObject;
+import com.laomn.example.mongodb.DemoDao;
+import com.laomn.example.mongodb.DemoEntity;
+import com.laomn.example.mongodb.SpringBootMongodbApplication;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

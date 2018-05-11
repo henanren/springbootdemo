@@ -11,12 +11,20 @@
     <name>spring-boot-mongodb</name>
     <description>Spring Boot 中使用 MongoDB 增删改查</description>
 
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.5.10.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
-    </parent>
+<!--     <parent> -->
+<!--         <groupId>org.springframework.boot</groupId> -->
+<!--         <artifactId>spring-boot-starter-parent</artifactId> -->
+<!--         <version>1.5.10.RELEASE</version> -->
+<!--         <relativePath/> lookup parent from repository -->
+<!--     </parent> -->
+
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.5.9.RELEASE</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
