@@ -5,12 +5,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.laomn</groupId>
-	<artifactId>spring-boot-cat</artifactId>
+	<artifactId>spring-boot-mycat</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>spring-boot-cat</name>
-	<description>Spring Boot 中使用 MongoDB 增删改查</description>
+	<name>spring-boot-mycat</name>
+	<description>Spring Boot mycat</description>
 
 	<!-- <parent> -->
 	<!-- <groupId>org.springframework.boot</groupId> -->
@@ -187,6 +187,7 @@
 		<!-- <groupId>org.springframework.boot</groupId> -->
 		<!-- <artifactId>spring-boot-starter-thymeleaf</artifactId> -->
 		<!-- </dependency> -->
+		<!--
 		<dependency>
 			<groupId>com.dianping.cat</groupId>
 			<artifactId>cat-core</artifactId>
@@ -197,6 +198,7 @@
 			<artifactId>cat-client</artifactId>
 			<version>2.0.0</version>
 		</dependency>
+		-->
 		<!-- <dependency> -->
 		<!-- <groupId>org.springframework.boot</groupId> -->
 		<!-- <artifactId>spring-boot-starter-thymeleaf</artifactId> -->
