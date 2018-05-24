@@ -14,17 +14,26 @@ import com.laomn.service.TestService;
 public class TestController {
 
 	@Autowired
-	private TestService testService ;
-	
-	
+	private TestService testService;
+
 	@RequestMapping(value = "/list/{id:\\d+}", method = RequestMethod.GET)
-	public  Test findById(@PathVariable("id") long id) {
-		return testService.selectByPrimaryKey( id);
+	public Test findById(@PathVariable("id") long id) {
+		return testService.selectByPrimaryKey(id);
 	}
-	@RequestMapping(value ="/insert", method = RequestMethod.GET)
-	public  int insert() {
+
+	@RequestMapping(value = "/insert", method = RequestMethod.GET)
+	public int insert() {
 		return testService.insert();
 	}
-	
-	
+
+	@RequestMapping(value = "/del/{id:\\d+}", method = RequestMethod.GET)
+	public int del(@PathVariable("id") long id) {
+		return testService.delete(id);
+	}
+
+	@RequestMapping(value = "/update/{id:\\d+}", method = RequestMethod.GET)
+	public int update(@PathVariable("id") long id) {
+		return testService.update(id);
+	}
+
 }

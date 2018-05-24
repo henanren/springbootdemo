@@ -69,24 +69,24 @@
 		<!-- <artifactId>ehcache</artifactId> -->
 		<!-- </dependency> -->
 		<dependency>
-		<groupId>javax.servlet</groupId>
-		<artifactId>jstl</artifactId>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
 		</dependency>
 		<!-- servlet依赖. -->
 		<dependency>
-		<groupId>javax.servlet</groupId>
-		<artifactId>javax.servlet-api</artifactId>
-		<scope>provided</scope>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
-		<groupId>org.apache.tomcat.embed</groupId>
-		<artifactId>tomcat-embed-jasper</artifactId>
-		<scope>provided</scope>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-jasper</artifactId>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-tomcat</artifactId>
-		<scope>provided</scope>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
 		</dependency>
 
 		<!-- https://www.cnblogs.com/softidea/p/6071630.html -->
@@ -100,58 +100,70 @@
 		<!-- 因此，此时需要把此项配置给注释掉，但是打包上线的时候并不需要这些依赖，那么在打包的时候就把注释打开，即可。 -->
 
 		<dependency>
-		<groupId>org.apache.tomcat.embed</groupId>
-		<artifactId>tomcat-embed-jasper</artifactId>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-jasper</artifactId>
 		</dependency>
 		<dependency>
-		<groupId>org.apache.tomcat.embed</groupId>
-		<artifactId>tomcat-embed-core</artifactId>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-core</artifactId>
 		</dependency>
 		<dependency>
-		<groupId>org.apache.tomcat.embed</groupId>
-		<artifactId>tomcat-embed-el</artifactId>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-el</artifactId>
 		</dependency>
 		<dependency>
-		<groupId>org.mybatis.spring.boot</groupId>
-		<artifactId>mybatis-spring-boot-starter</artifactId>
-		<version>1.1.1</version>
-		</dependency>
+			<groupId>org.mybatis.spring.boot</groupId>
+			<artifactId>mybatis-spring-boot-starter</artifactId>
+			<version>1.1.1</version>
+<!-- 			<exclusions> -->
+<!-- 				<exclusion> -->
+<!-- 					<groupId>org.mybatis</groupId> -->
+<!-- 					<artifactId>mybatis</artifactId> -->
+<!-- 				</exclusion> -->
+<!-- 			</exclusions> -->
 
 
+		</dependency>
 		<dependency>
-		<groupId>mysql</groupId>
-		<artifactId>mysql-connector-java</artifactId>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>3.4.6-plus</version>
 		</dependency>
 
 		<dependency>
-		<groupId>com.github.pagehelper</groupId>
-		<artifactId>pagehelper</artifactId>
-		<version>4.1.6</version>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.github.pagehelper</groupId>
+			<artifactId>pagehelper</artifactId>
+			<version>4.1.6</version>
 		</dependency>
 
 
 
 		<!-- 连接池 -->
 		<dependency>
-		<groupId>com.alibaba</groupId>
-		<artifactId>druid</artifactId>
-		<version>1.0.15</version>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid</artifactId>
+			<version>1.0.15</version>
 		</dependency>
 		<dependency>
-		<groupId>com.alibaba</groupId>
-		<artifactId>fastjson</artifactId>
-		<version>1.2.4</version>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.4</version>
 		</dependency>
 		<dependency>
-		<groupId>org.jsoup</groupId>
-		<artifactId>jsoup</artifactId>
-		<version>1.7.2</version>
+			<groupId>org.jsoup</groupId>
+			<artifactId>jsoup</artifactId>
+			<version>1.7.2</version>
 		</dependency>
 
 
 
 
-<!-- commons apache start -->
+		<!-- commons apache start -->
 		<dependency>
 			<groupId>commons-beanutils</groupId>
 			<artifactId>commons-beanutils-core</artifactId>
@@ -179,55 +191,65 @@
 		</dependency>
 		<!-- commons apache end -->
 		<dependency>
-		<groupId>com.google.guava</groupId>
-		<artifactId>guava</artifactId>
-		<version>19.0</version>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>19.0</version>
 		</dependency>
 		<dependency>
-		<groupId>org.apache.logging.log4j</groupId>
-		<artifactId>log4j-core</artifactId>
-		<version>2.10.0</version>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>2.10.0</version>
 		</dependency>
 		<dependency>
-		<groupId>org.apache.logging.log4j</groupId>
-		<artifactId>log4j-to-slf4j</artifactId>
-		<version>2.9.1</version>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-to-slf4j</artifactId>
+			<version>2.9.1</version>
 		</dependency>
 		<!-- <dependency> -->
 		<!-- <groupId>org.springframework.boot</groupId> -->
 		<!-- <artifactId>spring-boot-starter-thymeleaf</artifactId> -->
 		<!-- </dependency> -->
-		<!--
-		<dependency>
-			<groupId>com.dianping.cat</groupId>
-			<artifactId>cat-core</artifactId>
-			<version>2.0.0</version>
-		</dependency>
-		<dependency>
-			<groupId>com.dianping.cat</groupId>
-			<artifactId>cat-client</artifactId>
-			<version>2.0.0</version>
-		</dependency>
-		-->
+		<!-- <dependency> <groupId>com.dianping.cat</groupId> <artifactId>cat-core</artifactId> 
+			<version>2.0.0</version> </dependency> <dependency> <groupId>com.dianping.cat</groupId> 
+			<artifactId>cat-client</artifactId> <version>2.0.0</version> </dependency> -->
+			
+			
+	<!-- start 由于用mybatis-plus 才加的jar文件 ，之前拦截器 不需要加的-->		
+<!-- <dependency> -->
+<!--     <groupId>org.javassist</groupId> -->
+<!--     <artifactId>javassist</artifactId> -->
+<!--     <version>3.22.0-CR2</version> -->
+<!-- </dependency> -->
+<!-- <dependency> -->
+<!--     <groupId>ognl</groupId> -->
+<!--     <artifactId>ognl</artifactId> -->
+<!--     <version>3.2.6</version> -->
+<!-- </dependency> -->
+			
+			<!--  end 由于用mybatis-plus 才加的jar文件 -->	
+			
+			
+ 
+				
 	</dependencies>
 
 
 	<build>
-	<finalName>mycat-demo</finalName>
+		<finalName>mycat-demo</finalName>
 		<plugins>
-<!-- 			<plugin> -->
-<!-- 				<groupId>org.springframework.boot</groupId> -->
-<!-- 				<artifactId>spring-boot-maven-plugin</artifactId> -->
-<!-- 			</plugin> -->
-			
-				<plugin>
+			<!-- <plugin> -->
+			<!-- <groupId>org.springframework.boot</groupId> -->
+			<!-- <artifactId>spring-boot-maven-plugin</artifactId> -->
+			<!-- </plugin> -->
+
+			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-<!-- 				<version>1.4.2.RELEASE</version> -->
+				<!-- <version>1.4.2.RELEASE</version> -->
 				<configuration>
 					<fork>true</fork>
-					<mainClass>com.laomn.Application</mainClass>  
-                    <layout>JAR</layout>  
+					<mainClass>com.laomn.Application</mainClass>
+					<layout>JAR</layout>
 				</configuration>
 				<executions>
 					<execution>
@@ -246,8 +268,8 @@
 					<encoding>utf-8</encoding>
 				</configuration>
 			</plugin>
-			
-			
+
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>

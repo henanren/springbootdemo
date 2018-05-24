@@ -54,6 +54,8 @@ public class MyFilter implements Filter {
 				out.append(res.toString());
 				return;
 			}
+
+			logger.info(TenantContextHolder.getTenant());
 			chain.doFilter(request, response);
 		} finally {
 			TenantContextHolder.remove();

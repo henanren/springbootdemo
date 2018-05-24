@@ -3,38 +3,37 @@ package com.laomn.interceptor;
 import java.sql.Connection;
 import java.util.Properties;
 
-import org.apache.ibatis.cache.CacheKey;
-import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.executor.statement.RoutingStatementHandler;
 import org.apache.ibatis.executor.statement.StatementHandler;
 import org.apache.ibatis.mapping.BoundSql;
-import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.plugin.Intercepts;
 import org.apache.ibatis.plugin.Invocation;
 import org.apache.ibatis.plugin.Plugin;
 import org.apache.ibatis.plugin.Signature;
-import org.apache.ibatis.session.ResultHandler;
-import org.apache.ibatis.session.RowBounds;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.laomn.Application;
 import com.laomn.common.TenantContextHolder;
 
-//@Intercepts({ @Signature(type = StatementHandler.class, method = "prepare", args = { Connection.class, Integer.class }),
-//		@Signature(type = Executor.class, method = "query", args = { MappedStatement.class, Object.class,
-//				RowBounds.class, ResultHandler.class }) })
-
-@Intercepts(value = {
-		@Signature(type = StatementHandler.class, method = "prepare", args = { Connection.class, Integer.class }),
-		@Signature(type = Executor.class, method = "update", args = { MappedStatement.class, Object.class }),
-		@Signature(type = Executor.class, method = "query", args = { MappedStatement.class, Object.class,
-				RowBounds.class, ResultHandler.class, CacheKey.class, BoundSql.class }),
-		@Signature(type = Executor.class, method = "query", args = { MappedStatement.class, Object.class,
-				RowBounds.class, ResultHandler.class }) })
+@Intercepts({
+		@Signature(type = StatementHandler.class, method = "prepare", args = { Connection.class, Integer.class }) })
+// @Intercepts(value = {
+// @Signature(type = StatementHandler.class, method = "prepare", args = {
+// Connection.class, Integer.class }),
+// @Signature(type = Executor.class, method = "update", args = {
+// MappedStatement.class, Object.class }),
+// @Signature(type = Executor.class, method = "query", args = {
+// MappedStatement.class, Object.class,
+// RowBounds.class, ResultHandler.class, CacheKey.class, BoundSql.class }),
+// @Signature(type = Executor.class, method = "query", args = {
+// MappedStatement.class, Object.class,
+// RowBounds.class, ResultHandler.class }) })
 public class TenantInterceptor implements Interceptor {
 	private static final Logger logger = LoggerFactory.getLogger(Application.class);
+	private static final String SCHEMA_START = "/*!mycat:schema=";
+	private static final String SCHEMA_END = " */";
 
 	@Override
 	public Object intercept(Invocation invocation) throws Throwable {
@@ -43,7 +42,7 @@ public class TenantInterceptor implements Interceptor {
 
 		if (tenant == null || tenant == "") {
 			// logger.info("tenant 为空，不需要改写sql语句");
-			logger.info("tenant 为空，不需要改写sql语句");
+			logger.info("tenant 为空");
 			return invocation.proceed();
 		}
 
@@ -68,7 +67,7 @@ public class TenantInterceptor implements Interceptor {
 			logger.info("处理之前" + sql);
 			// 对 sql 增加 mycat 注解
 
-			sql = "/*!mycat:schema=" + tenant + " */" + sql;
+			sql = SCHEMA_START + tenant + SCHEMA_END + sql;
 
 			// logger.info("加入处理后:" + sql);
 			logger.info("加入处理后:" + sql);

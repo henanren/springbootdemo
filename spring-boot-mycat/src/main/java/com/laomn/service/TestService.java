@@ -26,4 +26,16 @@ public class TestService {
 		return testMapper.insert(test);
 	}
 
+	public int update(long id) {
+		Test test = testMapper.selectByPrimaryKey(id);
+		test.setCreTime(new Date());
+		test.setName(TenantContextHolder.getTenant() + "- update");
+		test.setCreTime(new Date());
+		return testMapper.updateByPrimaryKey(test);
+	}
+
+	public int delete(long id) {
+		return testMapper.deleteByPrimaryKey(id);
+	}
+
 }
