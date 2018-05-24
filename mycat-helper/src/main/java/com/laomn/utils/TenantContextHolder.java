@@ -1,4 +1,4 @@
-package com.laomn.common;
+package com.laomn.utils;
 
 /**
  * 

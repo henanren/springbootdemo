@@ -5,9 +5,9 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.laomn.common.TenantContextHolder;
 import com.laomn.dao.TestMapper;
 import com.laomn.entites.Test;
+import com.laomn.utils.TenantContextHolder;
 
 @Service
 public class TestService {

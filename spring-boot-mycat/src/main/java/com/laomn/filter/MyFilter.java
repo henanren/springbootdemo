@@ -16,12 +16,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.alibaba.fastjson.JSONObject;
-import com.laomn.Application;
-import com.laomn.common.TenantContextHolder;
+import com.laomn.utils.TenantContextHolder;
 
 @WebFilter(filterName = "myFilter", urlPatterns = "/*")
 public class MyFilter implements Filter {
-	private static final Logger logger = LoggerFactory.getLogger(Application.class);
+	private static final Logger logger = LoggerFactory.getLogger(MyFilter.class);
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {

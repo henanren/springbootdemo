@@ -14,8 +14,7 @@ import org.apache.ibatis.plugin.Signature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.laomn.Application;
-import com.laomn.common.TenantContextHolder;
+import com.laomn.utils.TenantContextHolder;
 
 @Intercepts({
 		@Signature(type = StatementHandler.class, method = "prepare", args = { Connection.class, Integer.class }) })
@@ -31,7 +30,7 @@ import com.laomn.common.TenantContextHolder;
 // MappedStatement.class, Object.class,
 // RowBounds.class, ResultHandler.class }) })
 public class TenantInterceptor implements Interceptor {
-	private static final Logger logger = LoggerFactory.getLogger(Application.class);
+	private static final Logger logger = LoggerFactory.getLogger(TenantInterceptor.class);
 	private static final String SCHEMA_START = "/*!mycat:schema=";
 	private static final String SCHEMA_END = " */";
 
@@ -66,12 +65,15 @@ public class TenantInterceptor implements Interceptor {
 			// logger.info("处理之前" + sql);
 			logger.info("处理之前" + sql);
 			// 对 sql 增加 mycat 注解
-
-			sql = SCHEMA_START + tenant + SCHEMA_END + sql;
-
+			StringBuilder sb = new StringBuilder(100);
+			sb.append(SCHEMA_START);
+			sb.append(tenant);
+			sb.append(SCHEMA_END);
+			sb.append(sql);
+			String result = sb.toString();
 			// logger.info("加入处理后:" + sql);
-			logger.info("加入处理后:" + sql);
-			ReflectHelper.setFieldValue(boundSql, "sql", sql);
+			logger.info("加入处理后:" + result);
+			ReflectHelper.setFieldValue(boundSql, "sql", result);
 
 		}
 		return invocation.proceed();

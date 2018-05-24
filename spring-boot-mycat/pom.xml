@@ -124,11 +124,7 @@
 
 
 		</dependency>
-		<dependency>
-			<groupId>org.mybatis</groupId>
-			<artifactId>mybatis</artifactId>
-			<version>3.4.6-plus</version>
-		</dependency>
+	 
 
 		<dependency>
 			<groupId>mysql</groupId>
@@ -230,12 +226,19 @@
 			
 			
  
+ 
+ 
+     <dependency>
+			<groupId>com.laomn</groupId>
+			<artifactId>mycat-helper</artifactId>
+			<version>1.0.0</version>
+		</dependency>
 				
 	</dependencies>
 
 
 	<build>
-		<finalName>mycat-demo</finalName>
+		<finalName>spring-boot-mycat</finalName>
 		<plugins>
 			<!-- <plugin> -->
 			<!-- <groupId>org.springframework.boot</groupId> -->
