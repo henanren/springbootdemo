@@ -194,6 +194,17 @@
 			</resource>
 		</resources>
 	</build>
-
+<distributionManagement>
+        <repository>
+            <!-- 这里的ID要和setting的id一致 -->
+            <id>xmht</id>
+            <url>http://nexus.sys.v5q.cn:9081/content/groups/xmht</url>
+        </repository>
+        <!--这是打成快照版本的配置，如果不用这个snapshotRepository标签，打包失败，会报权限问题 -->
+        <snapshotRepository>
+            <id>xmht</id>
+            <url>http://nexus.sys.v5q.cn:9081/content/groups/xmht</url>
+        </snapshotRepository>
+    </distributionManagement>
 
 </project>
