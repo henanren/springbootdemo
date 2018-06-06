@@ -30,14 +30,16 @@ public class RabbitTopicTest {
 
 		String routeKey = "topic.message";
 
-		String exchange = "topicExchange";
+		// String exchange = "topicExchange";
 
-		context = "context:" + exchange + ",routeKey:" + routeKey + ",context:" + context;
+		// context = "context:" + exchange + ",routeKey:" + routeKey + ",context:" +
+		// context;
 
-		System.out.println("sendMessageTest : " + context);
-
-		for (int i = 0; i < 2; i++) {
-			this.rabbitTemplate.convertAndSend(exchange, routeKey, context + i);
+		for (int i = 0; i < 100; i++) {
+			String str = context + i;
+			// System.out.println("sendMessageTest : " + str);
+			// this.rabbitTemplate.convertAndSend(exchange, routeKey, context + i);
+			this.rabbitTemplate.convertAndSend(routeKey, str);
 		}
 
 	}
