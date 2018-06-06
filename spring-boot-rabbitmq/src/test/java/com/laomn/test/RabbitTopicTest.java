@@ -17,6 +17,7 @@ import com.laomn.run.Startup;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Startup.class)
+// @SpringBootTest
 public class RabbitTopicTest {
 
 	@Autowired
@@ -25,7 +26,7 @@ public class RabbitTopicTest {
 	@Test
 	public void sendMessageTest() {
 
-		String context = "此消息在，配置转发消息模式队列下， 有 TopicReceiver1 TopicReceiver2 TopicReceiver3 可以收到";
+		String context = "此消息在 - ";
 
 		String routeKey = "topic.message";
 
@@ -35,10 +36,13 @@ public class RabbitTopicTest {
 
 		System.out.println("sendMessageTest : " + context);
 
-		this.rabbitTemplate.convertAndSend(exchange, routeKey, context);
+		for (int i = 0; i < 2; i++) {
+			this.rabbitTemplate.convertAndSend(exchange, routeKey, context + i);
+		}
+
 	}
 
-	@Test
+	// @Test
 	public void sendMessagesTest() {
 
 		String context = "此消息在，配置转发消息模式队列下，有  TopicReceiver2 TopicReceiver3 可以收到";
@@ -54,7 +58,7 @@ public class RabbitTopicTest {
 		this.rabbitTemplate.convertAndSend(exchange, routeKey, context);
 	}
 
-	@Test
+	// @Test
 	public void sendYmqTest() {
 
 		String context = "此消息在，配置转发消息模式队列下，有 TopicReceiver3 可以收到";

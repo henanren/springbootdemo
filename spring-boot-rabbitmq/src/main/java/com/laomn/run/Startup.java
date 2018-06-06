@@ -11,10 +11,10 @@ import org.springframework.context.annotation.ComponentScan;
  * @create: 2017/10/23 14:14
  */
 @SpringBootApplication
-@ComponentScan(value = {"io.ymq.rabbitmq"})
+@ComponentScan(value = { "com.laomn" })
 public class Startup {
 
-    public static void main(String[] args) {
-        SpringApplication.run(Startup.class, args);
-    }
+	public static void main(String[] args) {
+		SpringApplication.run(Startup.class, args);
+	}
 }
