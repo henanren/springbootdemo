@@ -1,4 +1,4 @@
-package io.ymq.rabbitmq.config;
+package com.laomn.config;
 
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;

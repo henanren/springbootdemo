@@ -1,21 +1,22 @@
-package io.ymq.rabbitmq.fanout;
+package com.laomn.direct;
 
+import org.springframework.amqp.rabbit.annotation.Queue;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
 /**
- * 描述:接收者
+ * 描述:
  *
  * @author yanpenglei
- * @create 2017-10-23 15:38
+ * @create 2017-10-25 0:47
  **/
 @Component
-@RabbitListener(queues = "fanout.penglei.net")
-public class FanoutReceiver1 {
+@RabbitListener(queues = "hello")
+public class helloReceiver {
 
     @RabbitHandler
     public void process(String message) {
-        System.out.println("接收者 FanoutReceiver1," + message);
+        System.out.println("接收者 helloReceiver," + message);
     }
 }
