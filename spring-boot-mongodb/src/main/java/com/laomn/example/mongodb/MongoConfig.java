@@ -19,7 +19,6 @@ package com.laomn.example.mongodb;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.autoconfigure.mongo.MongoProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -35,47 +34,50 @@ import com.mongodb.MongoClientURI;
 import com.mongodb.ReadPreference;
 
 /**
- *@ClassName: MongoConfig
- *@Description: 
- *@author liuzelei
- *@date 2017年8月17日 下午5:23:10
+ * @ClassName: MongoConfig
+ * @Description: 
+ * @author liuzelei
+ * @date 2017年8月17日 下午5:23:10
  */
-@ConfigurationProperties(prefix="spring.data.mongodb")
+@ConfigurationProperties(prefix = "spring.data.mongodb")
 @Configuration
 public class MongoConfig {
 	private static final Logger LOGGER = LoggerFactory.getLogger(MongoConfig.class);
 	private String uri;
-	
+
 	public MongoDbFactory mongoDbFactory() throws Exception {
-		LOGGER.info("spring.data.mongodb.uri={}",uri);
+		LOGGER.info("spring.data.mongodb.uri={}", uri);
 		System.err.println(uri);
 		return new SimpleMongoDbFactory(new MongoClientURI(uri));
 	}
-	
+
 	@Bean
 	public MongoTemplate mongoTemplate() throws Exception {
 
 		// remove _class
-		MappingMongoConverter converter = new MappingMongoConverter(new DefaultDbRefResolver(mongoDbFactory()), new MongoMappingContext());
+		MappingMongoConverter converter = new MappingMongoConverter(new DefaultDbRefResolver(mongoDbFactory()),
+				new MongoMappingContext());
 		converter.setTypeMapper(new DefaultMongoTypeMapper(null));
 
 		// 设置读写分离策略
 		ReadPreference preference = ReadPreference.secondaryPreferred();
 		MongoTemplate mongoTemplate = new MongoTemplate(mongoDbFactory(), converter);
 		mongoTemplate.setReadPreference(preference);
+		mongoTemplate.getDb().setReadPreference(ReadPreference.secondaryPreferred());
+		mongoTemplate.getDb().slaveOk();
 		return mongoTemplate;
 
 	}
 
 	/**
-	 *@return the uri
+	 * @return the uri
 	 */
 	public String getUri() {
 		return uri;
 	}
 
 	/**
-	 *@param uri the uri to set
+	 * @param uri the uri to set
 	 */
 	public void setUri(String uri) {
 		this.uri = uri;

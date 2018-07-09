@@ -21,6 +21,44 @@ public class TestController {
 		return testService.selectByPrimaryKey(id);
 	}
 
+	@RequestMapping(value = "/list1/{name}", method = RequestMethod.GET)
+	public Test selectByName(@PathVariable("name") String name) {
+		long startTime = System.currentTimeMillis();// 记录开始时间
+
+		Test test = testService.selectByName(name);
+
+		long endTime = System.currentTimeMillis();// 记录结束时间
+
+		float excTime = (float) (endTime - startTime) / 1000;
+
+		System.out.println("name 执行时间：" + excTime + " s");
+		return test;
+	}
+
+	@RequestMapping(value = "/list2/{name1}", method = RequestMethod.GET)
+	public Test selectByName1(@PathVariable("name1") String name1) {
+		long startTime = System.currentTimeMillis();// 记录开始时间
+		Test test = testService.selectByName1(name1);
+		long endTime = System.currentTimeMillis();// 记录结束时间
+
+		float excTime = (float) (endTime - startTime) / 1000;
+
+		System.out.println("name1 执行时间：" + excTime + " s");
+		return test;
+	}
+
+	@RequestMapping(value = "/list21/{name1}", method = RequestMethod.GET)
+	public Test selectByName11(@PathVariable("name1") String name1) {
+		long startTime = System.currentTimeMillis();// 记录开始时间
+		Test test = testService.selectByName11(name1);
+		long endTime = System.currentTimeMillis();// 记录结束时间
+
+		float excTime = (float) (endTime - startTime) / 1000;
+
+		System.out.println("name1 执行时间：" + excTime + " s");
+		return test;
+	}
+
 	@RequestMapping(value = "/insert", method = RequestMethod.GET)
 	public int insert() {
 		return testService.insert();
