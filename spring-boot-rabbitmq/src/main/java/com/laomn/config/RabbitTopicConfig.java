@@ -18,10 +18,11 @@ public class RabbitTopicConfig {
 	final static String MESSAGES = "topic.message.s";
 
 	final static String YMQ = "topic.ymq";
+	final static String MESSAGE1 = "gyl.activateQueue";
 
 	@Bean
 	public Queue queueMessage() {
-		return new Queue(RabbitTopicConfig.MESSAGE);
+		return new Queue(RabbitTopicConfig.MESSAGE1);
 	}
 
 	// @Bean

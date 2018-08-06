@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component;
  * @author yanpenglei
  * @create 2017-10-23 15:38
  **/
-@Component
-@RabbitListener(queues = "fanout.penglei.net")
+//@Component
+//@RabbitListener(queues = "fanout.penglei.net")
 public class FanoutReceiver1 {
 
     @RabbitHandler

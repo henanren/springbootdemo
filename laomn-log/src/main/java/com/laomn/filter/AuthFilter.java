@@ -42,30 +42,24 @@ public class AuthFilter implements Filter {
 		HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
 
 		String s = httpServletRequest.getParameter("code");
-		try {
-			if ("1".equals(s)) {
-				MDC.put("code", "daohoaxiang");
-			} else if ("2".equals(s)) {
-				MDC.put("code", "daohoaxiang");
-			} else if ("3".equals(s)) {
-				MDC.put("code", "mengniu");
-			} else {
-				MDC.put("code", "xmht");
-			}
-
-			logger.info(s + " :   filter");
-
-			logger.debug(s + " :   filter");
-			logger.warn(s + " :   filter");
-			logger.info(s + " :   filter");
-			logger.error(s + " :   filter");
-
-			filterChain.doFilter(servletRequest, servletResponse);
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			MDC.clear();
+		if ("1".equals(s)) {
+			MDC.put("code", "daohoaxiang");
+		} else if ("2".equals(s)) {
+			MDC.put("code", "daohoaxiang");
+		} else if ("3".equals(s)) {
+			MDC.put("code", "mengniu");
+		} else {
+			MDC.put("code", "xmht");
 		}
+
+		logger.info(s + " :   filter");
+
+		logger.debug(s + " :   filter");
+		logger.warn(s + " :   filter");
+		logger.info(s + " :   filter");
+		logger.error(s + " :   filter");
+		filterChain.doFilter(servletRequest, servletResponse);
+
 	}
 
 	@Override

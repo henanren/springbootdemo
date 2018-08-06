@@ -17,7 +17,7 @@ public class IndexController {
 
 	@RequestMapping(method = RequestMethod.GET, value = { "/" })
 	public String index(HttpServletRequest request, Map<String, Object> model) {
-		String s = request.getParameter("code");
+		String s = request.getParameter("c");
 		logger.info(s + "    : 测试日志");
 
 		logger.debug(s + " :   IndexController  测试日志");

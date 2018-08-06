@@ -17,6 +17,7 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.laomn.dao.Test123Mapper;
 import com.laomn.dao.TestMapper;
 import com.laomn.entites.Test;
 import com.laomn.utils.TenantContextHolder;
@@ -26,6 +27,9 @@ public class TestService {
 	private static int ID = 0;
 	@Autowired
 	private TestMapper testMapper;
+
+	@Autowired
+	private Test123Mapper test123Mapper;
 
 	public Test selectByPrimaryKey(Long id) {
 		return testMapper.selectByPrimaryKey(id);
@@ -101,8 +105,27 @@ public class TestService {
 	ExecutorService cachedThreadPool = Executors.newCachedThreadPool();
 	String dns[] = { "dn1", "dn4", "dn5" };
 
-	@PostConstruct
+	// @PostConstruct
 	public void init() {
+
+		for (int i = 0; i < 10; i++) {
+			cachedThreadPool.execute(new Runnable() {
+
+				@Override
+				public void run() {
+					TenantContextHolder.setTenant("company1");
+					for (int i = 0; i < 100000000; i++) {
+						insert();
+						System.out.println(i);
+					}
+				}
+			});
+		}
+
+	}
+
+	@PostConstruct
+	public void init2() {
 
 		for (int i = 0; i < 10; i++) {
 			cachedThreadPool.execute(new Runnable() {

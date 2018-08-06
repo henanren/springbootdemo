@@ -27,8 +27,8 @@ public class RabbitTopicTest {
 	public void sendMessageTest() {
 
 		String context = "此消息在 - ";
-
-		String routeKey = "topic.message";
+		    String MESSAGE1 = "gyl.activateQueue";
+//		String routeKey = "topic.message";
 
 		// String exchange = "topicExchange";
 
@@ -38,8 +38,8 @@ public class RabbitTopicTest {
 		for (int i = 0; i < 100; i++) {
 			String str = context + i;
 			// System.out.println("sendMessageTest : " + str);
-			// this.rabbitTemplate.convertAndSend(exchange, routeKey, context + i);
-			this.rabbitTemplate.convertAndSend(routeKey, str);
+			 this.rabbitTemplate.convertAndSend("gyl.activateExchange", "gyl.#", context + i);
+//			this.rabbitTemplate.convertAndSend(MESSAGE1, str);
 		}
 
 	}

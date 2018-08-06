@@ -11,7 +11,8 @@ import org.springframework.stereotype.Component;
  * @create: 2017/10/23 14:15
  */
 @Component
-@RabbitListener(queues = "topic.message")
+//@RabbitListener(queues = "topic.message")
+@RabbitListener(queues = "gyl.activateQueue")
 public class TopicReceiver1 {
 
 	@RabbitHandler
