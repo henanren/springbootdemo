@@ -1,29 +1,19 @@
-package com.laomn.config;
+package com.laomn.mq.config;
 
 import org.springframework.amqp.core.Queue;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-/**
- * 描述:配置转发消息模式队列
- *
- * @author yanpenglei
- * @create 2017-10-16 16:47
- **/
-//@Configuration
-public class RabbitTopicConfig {
+ 
+@Configuration
+public class RabbitConfig {
 
-	final static String MESSAGE = "topic.message";
-
-	final static String MESSAGES = "topic.message.s";
-
-	final static String YMQ = "topic.ymq";
-	final static String MESSAGE1 = "gyl.activateQueue";
-
-	@Bean
-	public Queue queueMessage() {
-		return new Queue(RabbitTopicConfig.MESSAGE1);
-	}
+	final static String QUEUE = "hello";
+    @Bean
+    public Queue Queue() {
+        return new Queue(QUEUE);
+    }
+ 
 
 	// @Bean
 	// public Queue queueMessages() {

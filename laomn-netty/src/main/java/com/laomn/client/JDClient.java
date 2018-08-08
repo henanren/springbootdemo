@@ -1,4 +1,4 @@
-package com.laomn.netty;
+package com.laomn.client;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -20,7 +20,7 @@ import io.netty.handler.codec.serialization.ObjectEncoder;
  * 
  * @author xwalker
  */
-public class BookTicketClient {
+public class JDClient {
 
 	public void connect(int port, String host, int num) throws Exception {
 		// 配置客户端线程组
@@ -38,7 +38,7 @@ public class BookTicketClient {
 							// 设置发送消息编码器
 							ch.pipeline().addLast(new ObjectEncoder());
 							// 设置网络IO处理器
-							ch.pipeline().addLast(new BookTicketClientHandler(num));
+							ch.pipeline().addLast(new JDClientHandler(num));
 
 						}
 					});
@@ -76,7 +76,7 @@ public class BookTicketClient {
 		@Override
 		public void run() {
 			try {
-				new BookTicketClient().connect(8000, "127.0.0.1", num);
+				new JDClient().connect(8000, "127.0.0.1", num);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

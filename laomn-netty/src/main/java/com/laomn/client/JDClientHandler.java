@@ -1,4 +1,6 @@
-package com.laomn.netty;
+package com.laomn.client;
+
+import com.laomn.msg.Command;
 
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
@@ -8,11 +10,11 @@ import io.netty.channel.ChannelHandlerContext;
  * 
  * @author xwalker
  */
-public class BookTicketClientHandler extends ChannelHandlerAdapter {
+public class JDClientHandler extends ChannelHandlerAdapter {
 
 	private int num ;
 	 
-	public BookTicketClientHandler(int num) {
+	public JDClientHandler(int num) {
 		this.num =num ;
 	}
 

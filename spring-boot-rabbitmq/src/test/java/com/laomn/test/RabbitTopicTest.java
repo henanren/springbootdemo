@@ -35,11 +35,11 @@ public class RabbitTopicTest {
 		// context = "context:" + exchange + ",routeKey:" + routeKey + ",context:" +
 		// context;
 
-		for (int i = 0; i < 100; i++) {
+		for (int i = 0; i < 1; i++) {
 			String str = context + i;
 			// System.out.println("sendMessageTest : " + str);
-			 this.rabbitTemplate.convertAndSend("gyl.activateExchange", "gyl.#", context + i);
-//			this.rabbitTemplate.convertAndSend(MESSAGE1, str);
+//			 this.rabbitTemplate.convertAndSend("gyl.activateExchange", "gyl.#", context + i);
+			this.rabbitTemplate.convertAndSend(MESSAGE1, str);
 		}
 
 	}

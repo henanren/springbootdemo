@@ -1,4 +1,4 @@
-package com.laomn.netty;
+package com.laomn.server;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -20,12 +20,12 @@ import io.netty.handler.logging.LoggingHandler;
  * @author xwalker
  *
  */
-public class BookTicketServer {
+public class ReceiveServer {
 
 	/**
 	 * 初始化 构造车次和车票余数
 	 */
-	public BookTicketServer() {
+	public ReceiveServer() {
 
 	}
 
@@ -47,7 +47,7 @@ public class BookTicketServer {
 											.getClass().getClassLoader())));
 							// 添加对象编码器 在服务器对外发送消息的时候自动将实现序列化的POJO对象编码
 							ch.pipeline().addLast(new ObjectEncoder());
-							ch.pipeline().addLast(new BookTicketServerhandler());
+							ch.pipeline().addLast(new ReceiveServerhandler());
 						}
 					});
 			// 绑定端口 同步等待绑定成功
@@ -63,7 +63,7 @@ public class BookTicketServer {
 
 	public static void main(String[] args) throws Exception {
 		int port = 8000;
-		new BookTicketServer().bind(port);
+		new ReceiveServer().bind(port);
 	}
 
 }
