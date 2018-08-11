@@ -12,11 +12,11 @@ import org.springframework.stereotype.Component;
 import com.laomn.netty.client.OuterClient;
 import com.laomn.utils.Constants;
 
-// @RabbitListener(queues = Constants.SEND_QUEUE)
 @Component
 @RabbitListener(queues = Constants.RECEIVE_QUEUE)
 public class MsgReceiver {
 	private static final Logger logger = LoggerFactory.getLogger(MsgReceiver.class);
+
 	@Autowired
 	private OuterClient outerClient;
 

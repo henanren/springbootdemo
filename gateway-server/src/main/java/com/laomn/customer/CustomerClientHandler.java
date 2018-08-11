@@ -57,8 +57,8 @@ public class CustomerClientHandler extends ChannelHandlerAdapter {
 		// Command responseMsg = (Command) msg;
 		// System.out.println(responseMsg.getNum());
 		// responseMsg.setNum(responseMsg.getNum() + 1);
-		String rev = getMessage((ByteBuf) msg);
-		logger.info("channelRead:   " + rev);
+		// String rev = getMessage((ByteBuf) msg);
+		logger.info("channelRead:   " + msg);
 		// ctx.writeAndFlush(responseMsg);
 
 		ctx.close();

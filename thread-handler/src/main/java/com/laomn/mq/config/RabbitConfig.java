@@ -10,12 +10,12 @@ import com.laomn.utils.Constants;
 public class RabbitConfig {
 
 	@Bean
-	public Queue SEND_QUEUE() {
+	public Queue sendQueue() {
 		return new Queue(Constants.SEND_QUEUE);
 	}
 
 	@Bean
-	public Queue RECEIVE_QUEUE() {
+	public Queue receiveQueue() {
 		return new Queue(Constants.RECEIVE_QUEUE);
 	}
 
@@ -33,17 +33,29 @@ public class RabbitConfig {
 	 * 交换机(Exchange) 描述：接收消息并且转发到绑定的队列，交换机不存储消息
 	 */
 	// @Bean
-	// TopicExchange topicExchange() {
-	// return new TopicExchange("topicExchange");
+	// TopicExchange sendExchange() {
+	// return new TopicExchange(Constants.sendExchange);
+	// }
+
+	// @Bean
+	// TopicExchange receiveExchange() {
+	// return new TopicExchange(Constants.receiveExchange);
 	// }
 
 	// 綁定队列 queueMessages() 到 topicExchange 交换机,路由键只接受完全匹配 topic.message
 	// 的队列接受者可以收到消息
 	// @Bean
-	// Binding bindingExchangeMessage(Queue queueMessage, TopicExchange
-	// topicExchange) {
+	// Binding bindingSendExchange(Queue sendQueue, TopicExchange sendExchange)
+	// {
 	// return
-	// BindingBuilder.bind(queueMessage).to(topicExchange).with("topic.message");
+	// BindingBuilder.bind(sendQueue).to(sendExchange).with(Constants.SEND_QUEUE);
+	// }
+
+	// @Bean
+	// Binding bindingReceiveExchange(Queue receiveQueue, TopicExchange
+	// receiveExchange) {
+	// return
+	// BindingBuilder.bind(receiveQueue).to(receiveExchange).with(Constants.RECEIVE_QUEUE);
 	// }
 
 	// 綁定队列 queueMessages() 到 topicExchange 交换机,路由键只要是以 topic.message

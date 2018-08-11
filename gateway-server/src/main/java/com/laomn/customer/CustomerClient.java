@@ -11,6 +11,8 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.codec.serialization.ClassResolvers;
 import io.netty.handler.codec.serialization.ObjectDecoder;
 import io.netty.handler.codec.serialization.ObjectEncoder;
+import io.netty.handler.logging.LogLevel;
+import io.netty.handler.logging.LoggingHandler;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -31,8 +33,9 @@ public class CustomerClient {
 		try {
 			// 配置客户端启动辅助类
 			Bootstrap b = new Bootstrap();
-			b.group(group).channel(NioSocketChannel.class).option(ChannelOption.TCP_NODELAY, true)
-					.handler(new ChannelInitializer<SocketChannel>() {
+			b.group(group).channel(NioSocketChannel.class).option(ChannelOption.SO_BACKLOG, 1024 * 1024)
+					.option(ChannelOption.TCP_NODELAY, true).option(ChannelOption.SO_KEEPALIVE, true)
+					.handler(new LoggingHandler(LogLevel.INFO)).handler(new ChannelInitializer<SocketChannel>() {
 						@Override
 						protected void initChannel(SocketChannel ch) throws Exception {
 							// 添加POJO对象解码器 禁止缓存类加载器

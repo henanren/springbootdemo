@@ -101,13 +101,19 @@ public class OuterServer {
 
 	@PostConstruct
 	public void init() {
-		System.err.println("outerServer    port : " + port);
-		logger.info("outerServer    port : " + port);
-		try {
-			bind(port);
-		} catch (Exception e) {
-			logger.error(e.getMessage());
-		}
+		Runnable run = new Runnable() {
+			public void run() {
+				System.err.println("outerServer    port : " + port);
+				logger.info("outerServer    port : " + port);
+				try {
+					bind(port);
+				} catch (Exception e) {
+					logger.error(e.getMessage());
+				}
+			}
+		};
+		new Thread(run).start();
+
 	}
 
 	@Value("${outer.server.port}")
