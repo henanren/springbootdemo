@@ -1,4 +1,4 @@
-package com.laomn.client.outer;
+package com.laomn.netty.client;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerAdapter;

@@ -1,11 +1,11 @@
 package com.laomn.mq.receiver;
 
+import io.netty.channel.Channel;
+
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
-import com.laomn.threads.BusinessTask;
-import com.laomn.threads.ThreadPool;
 import com.laomn.utils.Constants;
 
 @Component
@@ -15,7 +15,13 @@ public class MsgReceiver {
 	@RabbitHandler
 	public void process(String msg) {
 		System.out.println("Receiver  : " + msg);
-		ThreadPool.POOL.execute(new BusinessTask(msg));
-	}
+		String key = "";
+		String body = "";
+		// TODO
+		Channel channel = Constants.CUSTOMER_CHANNEL_CACHE.get(key);
+		if (channel != null) {
+			channel.writeAndFlush(body);
+		}
 
+	}
 }

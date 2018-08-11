@@ -1,4 +1,4 @@
-package com.laomn.client.outer;
+package com.laomn.netty.client;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
@@ -21,9 +21,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class OuterClient {
 	private static final Logger logger = LoggerFactory.getLogger(OuterClient.class);
-	@Value("${inner.server.host}")
+	@Value("${outer.client.host}")
 	private String host;
-	@Value("${inner.server.port}")
+	@Value("${outer.client.port}")
 	private int port;
 	@Autowired
 	private OuterClientHandler outerClientHandler;

@@ -10,8 +10,13 @@ import com.laomn.utils.Constants;
 public class RabbitConfig {
 
 	@Bean
-	public Queue Queue() {
-		return new Queue(Constants.QUEUE);
+	public Queue SEND_QUEUE() {
+		return new Queue(Constants.SEND_QUEUE);
+	}
+
+	@Bean
+	public Queue RECEIVE_QUEUE() {
+		return new Queue(Constants.RECEIVE_QUEUE);
 	}
 
 	// @Bean

@@ -4,18 +4,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import com.laomn.client.inner.InnerClient;
-
 @Component
 public class BusinessTask extends Thread {
 	private static final Logger logger = LoggerFactory.getLogger(BusinessTask.class);
 
-	private InnerClient innerClient;
-
 	private String msg;
 
-	public BusinessTask(InnerClient innerClient, String msg) {
-		this.innerClient = innerClient;
+	public BusinessTask(String msg) {
 		this.msg = msg;
 
 	}
@@ -24,7 +19,7 @@ public class BusinessTask extends Thread {
 
 		try {
 			logger.info("BusinessTask : " + msg);
-			innerClient.sendMsg(msg);
+			// TODO
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
