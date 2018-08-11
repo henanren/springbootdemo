@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <configuration>
+    <contextName>laomn-log</contextName>
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+    <!-- 目标是控制台 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+<!-- This is MDC value -->
+    <!-- We will assign a value to 'logFileName' via Java code -->
+    <appender name="FILE-THREAD" class="ch.qos.logback.classic.sift.SiftingAppender">
+        <discriminator>
+            <key>code</key>
+            <defaultValue>logback</defaultValue>
+        </discriminator>
+        <sift>
+            <!-- A standard RollingFileAppender, the log file is based on 'logFileName' at runtime  -->
+            <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+               <File>/root/ruqing/web/laomn/log/laomn/${code}.log</File>
+                <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+                    <Pattern>
+                        %d{yyyy-MM-dd HH:mm:ss.SSS} %mdc [%thread] %-5level %logger{36} - %msg%n
+                    </Pattern>
+                </encoder>
+                <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+                    <FileNamePattern>logback.log.%i.bak</FileNamePattern>
+                    <MinIndex>1</MinIndex>
+                    <MaxIndex>12</MaxIndex>
+                </rollingPolicy>
+                <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+                    <MaxFileSize>100MB</MaxFileSize>
+                </triggeringPolicy>
+            </appender>
+
+        </sift>
+    </appender>
+
+
+
+    <root level="ERROR">
+        <appender-ref ref="STDOUT" />
+        <appender-ref ref="FILE-THREAD" />
+    </root>
+
+    <logger name="com.laomn" level="ERROR" />
+    <logger name="redis.clients.jedis" level="INFO" />
+    <logger name="org.apache.commons.beanutils" level="INFO" />
+    <logger name="org.apache.activemq" level="INFO" />
+    <logger name="org.springframework" level="INFO" />
+    <logger name="org.springframework.web" level="INFO" />
+    <logger name="com.ibatis" level="DEBUG" />
+    <logger name="com.ibatis.common.jdbc.SimpleDataSource" level="DEBUG" />
+    <logger name="com.ibatis.common.jdbc.ScriptRunner" level="DEBUG" />
+    <logger name="com.ibatis.sqlmap.engine.impl.SqlMapClientDelegate" level="DEBUG" />
+    <logger name="java.sql.Connection" level="DEBUG" />
+    <logger name="java.sql.Statement" level="DEBUG" />
+    <logger name="java.sql.PreparedStatement" level="DEBUG" />
+
+</configuration>

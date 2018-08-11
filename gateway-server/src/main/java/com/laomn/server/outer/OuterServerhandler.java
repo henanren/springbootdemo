@@ -1,4 +1,4 @@
-package com.laomn.server.inner;
+package com.laomn.server.outer;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerAdapter;
@@ -10,29 +10,32 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.laomn.mq.sender.MsgSender;
-import com.laomn.server.outer.OuterServer;
 import com.laomn.utils.Constants;
 import com.laomn.utils.MsgUtils;
+import com.laomn.utils.UUIDUtils;
 
 @Component
-public class InnerServerhandler extends ChannelHandlerAdapter {
-	private static final Logger logger = LoggerFactory.getLogger(InnerServerhandler.class);
+public class OuterServerhandler extends ChannelHandlerAdapter {
+	private static final Logger logger = LoggerFactory.getLogger(OuterServerhandler.class);
 	@Autowired
 	private MsgSender msgSender;
 
 	@Override
 	public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
 
-		logger.info("服务器收到连接的数据为msg: " + msg.toString());
+		logger.info("OuterServerhandler服务器收到连接的数据为msg: " + msg.toString());
 
 		ByteBuf buf = (ByteBuf) msg;
 		String rev = MsgUtils.getMessage(buf);
-		logger.info(" 服务器收到连接的数据为rev :  " + rev);
-
-		if (Constants.OUTER_CLIENT_TO_INNER_SERVER_SEND.equals(rev)) {
-			ctx.writeAndFlush(Constants.OUTER_CLIENT_TO_INNER_SERVER_RECEIVE);
+		logger.info(" OuterServerhandler服务器收到连接的数据为rev :  " + rev);
+		// 第一次握手
+		if (Constants.CUSTOMER_CLIENT_TO_OUTER_SERVER_SEND.equals(rev)) {
+			ctx.writeAndFlush(Constants.CUSTOMER_CLIENT_TO_OUTER_SERVER_RECEIVE);
+			Constants.CHANNEL_CACHE.put("jd", ctx.channel());
+			Constants.CHANNEL_CACHE.put(UUIDUtils.getUUID(), ctx.channel());
 		} else {
-			OuterServer.sendMsg("", rev);
+			// MQ
+			msgSender.send(rev);
 		}
 
 	}
@@ -60,7 +63,7 @@ public class InnerServerhandler extends ChannelHandlerAdapter {
 
 	@Override
 	public void channelActive(ChannelHandlerContext ctx) throws Exception {
-		logger.info("收到连接 ： " + ctx.channel().localAddress().toString());
+		logger.info(ctx.channel().localAddress().toString() + " channelActive");
 	}
 
 	/*
