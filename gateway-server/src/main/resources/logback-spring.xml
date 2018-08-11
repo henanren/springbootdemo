@@ -40,12 +40,12 @@
 
 
 
-    <root level="ERROR">
+    <root level="INFO">
         <appender-ref ref="STDOUT" />
         <appender-ref ref="FILE-THREAD" />
     </root>
 
-    <logger name="com.laomn" level="ERROR" />
+    <logger name="com.laomn" level="DEBUG" />
     <logger name="redis.clients.jedis" level="INFO" />
     <logger name="org.apache.commons.beanutils" level="INFO" />
     <logger name="org.apache.activemq" level="INFO" />

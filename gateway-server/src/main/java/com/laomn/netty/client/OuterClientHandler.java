@@ -14,6 +14,16 @@ import com.laomn.utils.MsgUtils;
 public class OuterClientHandler extends ChannelHandlerAdapter {
 	private static final Logger logger = LoggerFactory.getLogger(OuterClientHandler.class);
 
+	private String msg;
+
+	public String getMsg() {
+		return msg;
+	}
+
+	public void setMsg(String msg) {
+		this.msg = msg;
+	}
+
 	/**
 	 * 链路链接成功
 	 */
@@ -22,7 +32,7 @@ public class OuterClientHandler extends ChannelHandlerAdapter {
 
 		logger.info("OuterClientHandler客户端与服务端通道-开启：" + ctx.channel().localAddress() + "channelActive");
 
-		ctx.writeAndFlush("0");
+		ctx.writeAndFlush(msg);
 	}
 
 	@Override

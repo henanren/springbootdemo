@@ -8,9 +8,9 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import io.netty.handler.codec.bytes.ByteArrayEncoder;
-
-import javax.annotation.PostConstruct;
+import io.netty.handler.codec.serialization.ClassResolvers;
+import io.netty.handler.codec.serialization.ObjectDecoder;
+import io.netty.handler.codec.serialization.ObjectEncoder;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,9 +27,11 @@ public class OuterClient {
 	private int port;
 	@Autowired
 	private OuterClientHandler outerClientHandler;
-	private static SocketChannel CHANNEL;
+
+	// private static SocketChannel CHANNEL;
 
 	public void connect(int port, String host) throws Exception {
+		outerClientHandler.setMsg(msg);
 		// 配置客户端线程组
 		EventLoopGroup group = new NioEventLoopGroup();
 		try {
@@ -40,21 +42,21 @@ public class OuterClient {
 						@Override
 						protected void initChannel(SocketChannel ch) throws Exception {
 							// 添加POJO对象解码器 禁止缓存类加载器
-							// ch.pipeline().addLast(
-							// new ObjectDecoder(1024 * 1024,
-							// ClassResolvers.cacheDisabled(this.getClass()
-							// .getClassLoader())));
+							ch.pipeline().addLast(
+									new ObjectDecoder(1024 * 1024, ClassResolvers.cacheDisabled(this.getClass()
+											.getClassLoader())));
 							// 设置发送消息编码器
-							// ch.pipeline().addLast(new ObjectEncoder());
+							ch.pipeline().addLast(new ObjectEncoder());
 							// 设置网络IO处理器
 
-							ch.pipeline().addLast(
-									new io.netty.handler.codec.string.StringEncoder(java.nio.charset.Charset
-											.forName("utf-8")));
+							// ch.pipeline().addLast(
+							// new
+							// io.netty.handler.codec.string.StringEncoder(java.nio.charset.Charset
+							// .forName("utf-8")));
 							ch.pipeline().addLast(outerClientHandler);
-							ch.pipeline().addLast(new ByteArrayEncoder());
+							// ch.pipeline().addLast(new ByteArrayEncoder());
 							// ch.pipeline().addLast(new ChunkedWriteHandler());
-							CHANNEL = ch;
+							// CHANNEL = ch;
 
 						}
 					});
@@ -70,22 +72,33 @@ public class OuterClient {
 
 	}
 
-	public static void main(String[] args) throws Throwable {
+	private String msg;
 
-		new OuterClient().connect(8000, "127.0.0.1");
+	public String getMsg() {
+		return msg;
 	}
 
-	@PostConstruct
+	public void setMsg(String msg) {
+		this.msg = msg;
+	}
+
+	public static void main(String[] args) throws Throwable {
+
+		// new OuterClient("test").connect(8000, "127.0.0.1");
+	}
+
+	// @PostConstruct
 	public void init() {
 		logger.info("OuterClient  host : " + host + " port : " + port);
 		try {
-			connect(port, host);
+			// connect(port, host);
+
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 		}
 	}
 
-	public static void sendMsg(Object msg) {
-		CHANNEL.writeAndFlush(msg);
-	}
+	// public static void sendMsg(Object msg) {
+	// CHANNEL.writeAndFlush(msg);
+	// }
 }

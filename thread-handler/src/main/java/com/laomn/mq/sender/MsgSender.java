@@ -18,7 +18,7 @@ public class MsgSender {
 
 	public void send(String msg) {
 		if (StringUtils.isNotBlank(msg)) {
-			logger.info("send: " + msg);
+			logger.error("send: " + msg);
 			this.rabbitTemplate.convertAndSend(Constants.SEND_QUEUE, msg);
 		}
 

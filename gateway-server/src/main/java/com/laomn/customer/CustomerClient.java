@@ -8,7 +8,9 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import io.netty.handler.codec.bytes.ByteArrayEncoder;
+import io.netty.handler.codec.serialization.ClassResolvers;
+import io.netty.handler.codec.serialization.ObjectDecoder;
+import io.netty.handler.codec.serialization.ObjectEncoder;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -34,19 +36,19 @@ public class CustomerClient {
 						@Override
 						protected void initChannel(SocketChannel ch) throws Exception {
 							// 添加POJO对象解码器 禁止缓存类加载器
-							// ch.pipeline().addLast(
-							// new ObjectDecoder(1024 * 1024,
-							// ClassResolvers.cacheDisabled(this.getClass()
-							// .getClassLoader())));
+							ch.pipeline().addLast(
+									new ObjectDecoder(1024 * 1024, ClassResolvers.cacheDisabled(this.getClass()
+											.getClassLoader())));
 							// 设置发送消息编码器
-							// ch.pipeline().addLast(new ObjectEncoder());
+							ch.pipeline().addLast(new ObjectEncoder());
 							// 设置网络IO处理器
 
-							ch.pipeline().addLast(
-									new io.netty.handler.codec.string.StringEncoder(java.nio.charset.Charset
-											.forName("utf-8")));
+							// ch.pipeline().addLast(
+							// new
+							// io.netty.handler.codec.string.StringEncoder(java.nio.charset.Charset
+							// .forName("utf-8")));
 							ch.pipeline().addLast(new CustomerClientHandler());
-							ch.pipeline().addLast(new ByteArrayEncoder());
+							// ch.pipeline().addLast(new ByteArrayEncoder());
 							// ch.pipeline().addLast(new ChunkedWriteHandler());
 
 						}

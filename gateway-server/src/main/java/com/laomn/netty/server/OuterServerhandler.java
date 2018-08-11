@@ -1,6 +1,5 @@
 package com.laomn.netty.server;
 
-import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
 
@@ -10,9 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.laomn.mq.sender.MsgSender;
+import com.laomn.msg.Msg;
 import com.laomn.utils.Constants;
-import com.laomn.utils.MsgUtils;
-import com.laomn.utils.UUIDUtils;
 
 @Component
 public class OuterServerhandler extends ChannelHandlerAdapter {
@@ -24,19 +22,29 @@ public class OuterServerhandler extends ChannelHandlerAdapter {
 	public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
 
 		logger.info("OuterServerhandler服务器收到连接的数据为msg: " + msg.toString());
-
-		ByteBuf buf = (ByteBuf) msg;
-		String rev = MsgUtils.getMessage(buf);
-		logger.info(" OuterServerhandler服务器收到连接的数据为rev :  " + rev);
+		Msg mssg = (Msg) msg;
+		// ByteBuf buf = (ByteBuf) mssg.get;
+		// String rev = MsgUtils.getMessage(buf);
+		logger.info(" OuterServerhandler服务器收到连接的数据为rev :  " + mssg.getBody());
 		// 第一次握手
-		if (Constants.CUSTOMER_CLIENT_TO_OUTER_SERVER_SEND.equals(rev)) {
-			ctx.writeAndFlush(Constants.CUSTOMER_CLIENT_TO_OUTER_SERVER_RECEIVE);
-			Constants.CHANNEL_CACHE.put("jd", ctx.channel());
-			Constants.CUSTOMER_CHANNEL_CACHE.put(UUIDUtils.getUUID(), ctx.channel());
-		} else {
-			// MQ
-			msgSender.send(rev);
+		// if (Constants.CUSTOMER_CLIENT_TO_OUTER_SERVER_SEND.equals(rev)) {
+		// ctx.writeAndFlush(Constants.CUSTOMER_CLIENT_TO_OUTER_SERVER_RECEIVE);
+		// Constants.CHANNEL_CACHE.put("jd", ctx.channel());
+		// Constants.CUSTOMER_CHANNEL_CACHE.put(UUIDUtils.getUUID(),
+		// ctx.channel());
+		// } else {
+		// // MQ
+		// msgSender.send(rev);
+		// }
+		String customer_no = "123456";
+		Constants.CUSTOMER_CHANNEL_CACHE.put(customer_no, ctx.channel());
+		// 同步异步
+		boolean flag = false;
+		if (flag) {
+			ctx.writeAndFlush(1);
 		}
+		// MQ
+		msgSender.send(mssg.getBody());
 
 	}
 

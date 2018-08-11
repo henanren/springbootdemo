@@ -12,6 +12,7 @@ import java.io.UnsupportedEncodingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.laomn.msg.Msg;
 import com.laomn.utils.MsgUtils;
 
 public class CustomerClientHandler extends ChannelHandlerAdapter {
@@ -40,7 +41,10 @@ public class CustomerClientHandler extends ChannelHandlerAdapter {
 		}
 
 		String sSendMsg = MsgUtils.doAddBaseMsgHeader(buf);
-		ctx.writeAndFlush(sSendMsg);
+		Msg mssg = new Msg();
+		mssg.setBody(sSendMsg);
+		ctx.writeAndFlush(mssg);
+		logger.error("CustomerClientHandler : " + sSendMsg);
 	}
 
 	@Override
