@@ -1,4 +1,4 @@
-package com.laomn.client;
+package com.laomn.client.inner;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
@@ -13,13 +13,23 @@ import io.netty.handler.codec.bytes.ByteArrayEncoder;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import javax.annotation.PostConstruct;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
-public class JDClient {
-	private static final Logger logger = LoggerFactory.getLogger(JDClient.class);
+@Component
+public class InnerClient {
+	private static final Logger logger = LoggerFactory.getLogger(InnerClient.class);
+	@Autowired
+	private InnerClientHandler innerClientHandler;
+	private static SocketChannel CHANNEL;
 
 	public void connect(int port, String host) throws Exception {
+
 		// 配置客户端线程组
 		EventLoopGroup group = new NioEventLoopGroup();
 		try {
@@ -41,10 +51,10 @@ public class JDClient {
 							ch.pipeline().addLast(
 									new io.netty.handler.codec.string.StringEncoder(java.nio.charset.Charset
 											.forName("utf-8")));
-							ch.pipeline().addLast(new JDClientHandler());
+							ch.pipeline().addLast(innerClientHandler);
 							ch.pipeline().addLast(new ByteArrayEncoder());
 							// ch.pipeline().addLast(new ChunkedWriteHandler());
-
+							CHANNEL = ch;
 						}
 					});
 			// 发起异步服务器连接请求 同步等待成功
@@ -76,11 +86,33 @@ public class JDClient {
 		@Override
 		public void run() {
 			try {
-				new JDClient().connect(8000, "127.0.0.1");
+				new InnerClient().connect(8000, "127.0.0.1");
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 	}
 
+	@PostConstruct
+	public void init() {
+		logger.info("innerClient  host : " + host + " port : " + port);
+		try {
+			connect(port, host);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+	}
+
+	@Value("${business.server.host}")
+	private String host;
+	@Value("${business.server.port}")
+	private int port;
+
+	public void sendMsg(Object msg) {
+		if (CHANNEL == null) {
+			logger.info("CHANNEL 为null  ");
+			return;
+		}
+		CHANNEL.writeAndFlush(msg);
+	}
 }

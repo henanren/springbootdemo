@@ -1,4 +1,4 @@
-package com.laomn.server;
+package com.laomn.server.outer;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerAdapter;
@@ -6,26 +6,37 @@ import io.netty.channel.ChannelHandlerContext;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+import com.laomn.mq.sender.MsgSender;
 import com.laomn.utils.Constants;
 import com.laomn.utils.MsgUtils;
 import com.laomn.utils.UUIDUtils;
 
-public class ReceiveServerhandler extends ChannelHandlerAdapter {
-	private static final Logger logger = LoggerFactory.getLogger(ReceiveServerhandler.class);
+@Component
+public class OuterServerhandler extends ChannelHandlerAdapter {
+	private static final Logger logger = LoggerFactory.getLogger(OuterServerhandler.class);
+	@Autowired
+	private MsgSender msgSender;
 
 	@Override
 	public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
 
-		logger.info("msg: " + msg.toString());
+		logger.info("OuterServerhandler服务器收到连接的数据为msg: " + msg.toString());
 
 		ByteBuf buf = (ByteBuf) msg;
 		String rev = MsgUtils.getMessage(buf);
-		logger.info(" 服务器收到数据为:  " + rev);
-
-		Constants.CHANNEL_CACHE.put("jd", ctx.channel());
-		Constants.CHANNEL_CACHE.put(UUIDUtils.getUUID(), ctx.channel());
-		ctx.writeAndFlush("0000000000");
+		logger.info(" OuterServerhandler服务器收到连接的数据为rev :  " + rev);
+		// 第一次握手
+		if (Constants.CUSTOMER_CLIENT_TO_OUTER_SERVER_SEND.equals(rev)) {
+			ctx.writeAndFlush(Constants.CUSTOMER_CLIENT_TO_OUTER_SERVER_RECEIVE);
+			Constants.CHANNEL_CACHE.put("jd", ctx.channel());
+			Constants.CHANNEL_CACHE.put(UUIDUtils.getUUID(), ctx.channel());
+		} else {
+			// MQ
+			msgSender.send(rev);
+		}
 
 	}
 

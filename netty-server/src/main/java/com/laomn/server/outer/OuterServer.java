@@ -1,6 +1,7 @@
-package com.laomn.server;
+package com.laomn.server.outer;
 
 import io.netty.bootstrap.ServerBootstrap;
+import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
@@ -12,15 +13,28 @@ import io.netty.handler.codec.bytes.ByteArrayEncoder;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 
+import javax.annotation.PostConstruct;
+
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
-public class ReceiveServer {
-	private static final Logger logger = LoggerFactory.getLogger(ReceiveServer.class);
+import com.laomn.utils.Constants;
 
-	public ReceiveServer() {
+@Component
+public class OuterServer {
+	private static final Logger logger = LoggerFactory.getLogger(OuterServer.class);
+	@Autowired
+	private OuterServerhandler outerServerhandler;
+
+	public OuterServer() {
 
 	}
+
+	private static SocketChannel CHANNEL;
 
 	public void bind(int port) throws Exception {
 		// 配置NIO线程组
@@ -46,9 +60,9 @@ public class ReceiveServer {
 							ch.pipeline().addLast(
 									new io.netty.handler.codec.string.StringEncoder(java.nio.charset.Charset
 											.forName("utf-8")));
-							ch.pipeline().addLast(new ReceiveServerhandler()); // 客户端触发操作
+							ch.pipeline().addLast(outerServerhandler); // 客户端触发操作
 							ch.pipeline().addLast(new ByteArrayEncoder());
-
+							CHANNEL = ch;
 						}
 					});
 			// 绑定端口 同步等待绑定成功
@@ -64,8 +78,31 @@ public class ReceiveServer {
 
 	public static void main(String[] args) throws Exception {
 		int port = 8000;
-		new ReceiveServer().bind(port);
+		new OuterServer().bind(port);
 		logger.info("启动服务。");
 	}
+
+	public static void sendMsg(String key, Object msg) {
+		if (StringUtils.isNoneBlank(key)) {
+			Channel channel = Constants.CUSTOMER_CHANNEL_CACHE.get(key);
+			if (channel != null) {
+				channel.writeAndFlush(msg);
+			}
+		}
+
+	}
+
+	@PostConstruct
+	public void init() {
+		logger.info("outerServer    port : " + port);
+		try {
+			bind(port);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+	}
+
+	@Value("${outer.server.port}")
+	private int port;
 
 }

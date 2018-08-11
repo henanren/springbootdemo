@@ -1,4 +1,4 @@
-package com.laomn.server;
+package com.laomn.server.inner;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -12,15 +12,24 @@ import io.netty.handler.codec.bytes.ByteArrayEncoder;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 
+import javax.annotation.PostConstruct;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
-public class ReceiveServer {
-	private static final Logger logger = LoggerFactory.getLogger(ReceiveServer.class);
+@Component
+public class InnerServer {
+	private static final Logger logger = LoggerFactory.getLogger(InnerServer.class);
 
-	public ReceiveServer() {
+	public InnerServer() {
 
 	}
+
+	@Autowired
+	private InnerServerhandler innerServerhandler;
 
 	public void bind(int port) throws Exception {
 		// 配置NIO线程组
@@ -46,7 +55,7 @@ public class ReceiveServer {
 							ch.pipeline().addLast(
 									new io.netty.handler.codec.string.StringEncoder(java.nio.charset.Charset
 											.forName("utf-8")));
-							ch.pipeline().addLast(new ReceiveServerhandler()); // 客户端触发操作
+							ch.pipeline().addLast(innerServerhandler); // 客户端触发操作
 							ch.pipeline().addLast(new ByteArrayEncoder());
 
 						}
@@ -63,9 +72,22 @@ public class ReceiveServer {
 	}
 
 	public static void main(String[] args) throws Exception {
-		int port = 8000;
-		new ReceiveServer().bind(port);
+		int port = 8001;
+		new InnerServer().bind(port);
 		logger.info("启动服务。");
 	}
+
+	@PostConstruct
+	public void init() {
+		logger.info("InnerServer    port : " + port);
+		try {
+			bind(port);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+	}
+
+	@Value("${inner.server.port}")
+	private int port;
 
 }

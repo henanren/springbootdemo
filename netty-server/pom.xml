@@ -5,7 +5,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.laomn</groupId>
-	<artifactId>laomn-netty</artifactId>
+	<artifactId>netty-server</artifactId>
 	<version>1.0</version>
 	<packaging>jar</packaging>
 	<parent>
@@ -115,16 +115,19 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.38</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/dom4j/dom4j -->
 <dependency>
     <groupId>dom4j</groupId>
     <artifactId>dom4j</artifactId>
-    <version>1.6.1</version>
+</dependency>
+<dependency>
+    <groupId>org.apache.commons</groupId>
+    <artifactId>commons-lang3</artifactId>
+    <version>3.7</version>
 </dependency>
         
 	</dependencies>
 	<build>
-		<finalName>laomn-netty</finalName>
+		<finalName>netty-server</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

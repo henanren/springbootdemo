@@ -6,5 +6,6 @@ import io.netty.channel.Channel;
 
 public class Constants {
 	public static final ConcurrentHashMap <String,Channel>CHANNEL_CACHE=new ConcurrentHashMap<String,Channel>();
+	public static final ConcurrentHashMap <String,Channel>CUSTOMER_CHANNEL_CACHE=new ConcurrentHashMap<String,Channel>();
 
 }

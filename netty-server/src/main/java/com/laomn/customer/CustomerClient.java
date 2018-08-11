@@ -1,4 +1,4 @@
-package com.laomn.client;
+package com.laomn.customer;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
@@ -13,11 +13,15 @@ import io.netty.handler.codec.bytes.ByteArrayEncoder;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import javax.annotation.PostConstruct;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 
-public class JDClient {
-	private static final Logger logger = LoggerFactory.getLogger(JDClient.class);
+//@Component
+public class CustomerClient {
+	private static final Logger logger = LoggerFactory.getLogger(CustomerClient.class);
 
 	public void connect(int port, String host) throws Exception {
 		// 配置客户端线程组
@@ -41,7 +45,7 @@ public class JDClient {
 							ch.pipeline().addLast(
 									new io.netty.handler.codec.string.StringEncoder(java.nio.charset.Charset
 											.forName("utf-8")));
-							ch.pipeline().addLast(new JDClientHandler());
+							ch.pipeline().addLast(new CustomerClientHandler());
 							ch.pipeline().addLast(new ByteArrayEncoder());
 							// ch.pipeline().addLast(new ChunkedWriteHandler());
 
@@ -76,11 +80,26 @@ public class JDClient {
 		@Override
 		public void run() {
 			try {
-				new JDClient().connect(8000, "127.0.0.1");
+				new CustomerClient().connect(8000, "127.0.0.1");
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 	}
+
+	@PostConstruct
+	public void init() {
+		logger.info("innerClient  host : " + host + " port : " + port);
+		try {
+			connect(port, host);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+	}
+
+	@Value("${inner.client.host}")
+	private String host;
+	@Value("${inner.client.port}")
+	private int port;
 
 }

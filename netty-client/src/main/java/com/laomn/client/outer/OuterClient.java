@@ -1,4 +1,4 @@
-package com.laomn.client;
+package com.laomn.client.outer;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
@@ -10,14 +10,24 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.codec.bytes.ByteArrayEncoder;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import javax.annotation.PostConstruct;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
-public class JDClient {
-	private static final Logger logger = LoggerFactory.getLogger(JDClient.class);
+@Component
+public class OuterClient {
+	private static final Logger logger = LoggerFactory.getLogger(OuterClient.class);
+	@Value("${inner.server.host}")
+	private String host;
+	@Value("${inner.server.port}")
+	private int port;
+	@Autowired
+	private OuterClientHandler outerClientHandler;
+	private static SocketChannel CHANNEL;
 
 	public void connect(int port, String host) throws Exception {
 		// 配置客户端线程组
@@ -41,9 +51,10 @@ public class JDClient {
 							ch.pipeline().addLast(
 									new io.netty.handler.codec.string.StringEncoder(java.nio.charset.Charset
 											.forName("utf-8")));
-							ch.pipeline().addLast(new JDClientHandler());
+							ch.pipeline().addLast(outerClientHandler);
 							ch.pipeline().addLast(new ByteArrayEncoder());
 							// ch.pipeline().addLast(new ChunkedWriteHandler());
+							CHANNEL = ch;
 
 						}
 					});
@@ -61,26 +72,20 @@ public class JDClient {
 
 	public static void main(String[] args) throws Throwable {
 
-		ExecutorService executors = Executors.newCachedThreadPool();
-		SleepTread mSleepTread;
-		for (int i = 0; i < 1; i++) {
-			mSleepTread = new SleepTread();
-			executors.execute(mSleepTread);
-			Thread.sleep(10);
-		}
-		executors.shutdown();
+		new OuterClient().connect(8000, "127.0.0.1");
 	}
 
-	static class SleepTread extends Thread {
-
-		@Override
-		public void run() {
-			try {
-				new JDClient().connect(8000, "127.0.0.1");
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+	@PostConstruct
+	public void init() {
+		logger.info("OuterClient  host : " + host + " port : " + port);
+		try {
+			connect(port, host);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
 		}
 	}
 
+	public static void sendMsg(Object msg) {
+		CHANNEL.writeAndFlush(msg);
+	}
 }

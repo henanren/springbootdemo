@@ -1,4 +1,4 @@
-package com.laomn.client;
+package com.laomn.customer;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerAdapter;
@@ -14,8 +14,8 @@ import org.slf4j.LoggerFactory;
 
 import com.laomn.utils.MsgUtils;
 
-public class JDClientHandler extends ChannelHandlerAdapter {
-	private static final Logger logger = LoggerFactory.getLogger(JDClientHandler.class);
+public class CustomerClientHandler extends ChannelHandlerAdapter {
+	private static final Logger logger = LoggerFactory.getLogger(CustomerClientHandler.class);
 
 	/**
 	 * 链路链接成功
@@ -56,6 +56,7 @@ public class JDClientHandler extends ChannelHandlerAdapter {
 		String rev = getMessage((ByteBuf) msg);
 		logger.info("channelRead:   " + rev);
 		// ctx.writeAndFlush(responseMsg);
+
 		ctx.close();
 
 	}
@@ -69,11 +70,6 @@ public class JDClientHandler extends ChannelHandlerAdapter {
 			e.printStackTrace();
 			return null;
 		}
-	}
-
-	@Override
-	public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
-		ctx.flush();
 	}
 
 	@Override
