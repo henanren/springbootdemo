@@ -1,8 +1,8 @@
 package com.laomn.customer;
 
 import io.netty.buffer.ByteBuf;
-import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelInboundHandlerAdapter;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
 import com.laomn.msg.Msg;
 import com.laomn.utils.MsgUtils;
 
-public class CustomerClientHandler extends ChannelHandlerAdapter {
+public class CustomerClientHandler extends ChannelInboundHandlerAdapter {
 	private static final Logger logger = LoggerFactory.getLogger(CustomerClientHandler.class);
 
 	/**
@@ -23,7 +23,7 @@ public class CustomerClientHandler extends ChannelHandlerAdapter {
 	 */
 	@Override
 	public void channelActive(ChannelHandlerContext ctx) throws Exception {
-
+		super.channelActive(ctx);
 		logger.info("客户端与服务端通道-开启：" + ctx.channel().localAddress() + "channelActive");
 		// ctx.writeAndFlush(toXml());
 		File fileToSend = new File("E:\\BaiduNetdiskDownload\\gateway\\gateway\\gatewayTestXML\\GD71.xml");
@@ -49,11 +49,13 @@ public class CustomerClientHandler extends ChannelHandlerAdapter {
 
 	@Override
 	public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+		super.channelInactive(ctx);
 		logger.info("客户端与服务端通道-关闭：" + ctx.channel().localAddress() + "channelInactive");
 	}
 
 	@Override
 	public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+		super.channelRead(ctx, msg);
 		// Command responseMsg = (Command) msg;
 		// System.out.println(responseMsg.getNum());
 		// responseMsg.setNum(responseMsg.getNum() + 1);
@@ -78,6 +80,7 @@ public class CustomerClientHandler extends ChannelHandlerAdapter {
 
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+		super.exceptionCaught(ctx, cause);
 		cause.printStackTrace();
 		ctx.close();
 	}

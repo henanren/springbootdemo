@@ -1,7 +1,7 @@
 package com.laomn.netty.server;
 
-import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelInboundHandlerAdapter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,14 +13,15 @@ import com.laomn.msg.Msg;
 import com.laomn.utils.Constants;
 
 @Component
-public class OuterServerhandler extends ChannelHandlerAdapter {
+public class OuterServerhandler extends ChannelInboundHandlerAdapter {
+	// ChannelHandlerAdapter
 	private static final Logger logger = LoggerFactory.getLogger(OuterServerhandler.class);
 	@Autowired
 	private MsgSender msgSender;
 
 	@Override
 	public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-
+		super.channelRead(ctx, msg);
 		logger.info("OuterServerhandler服务器收到连接的数据为msg: " + msg.toString());
 		Msg mssg = (Msg) msg;
 		// ByteBuf buf = (ByteBuf) mssg.get;
@@ -71,6 +72,7 @@ public class OuterServerhandler extends ChannelHandlerAdapter {
 
 	@Override
 	public void channelActive(ChannelHandlerContext ctx) throws Exception {
+		super.channelActive(ctx);
 		logger.info(ctx.channel().localAddress().toString() + " channelActive");
 	}
 
@@ -83,11 +85,13 @@ public class OuterServerhandler extends ChannelHandlerAdapter {
 	 */
 	@Override
 	public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+		super.channelInactive(ctx);
 		logger.info(ctx.channel().localAddress().toString() + " channelInactive");
 	}
 
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+		super.exceptionCaught(ctx, cause);
 		cause.printStackTrace();
 		ctx.close();
 	}

@@ -58,6 +58,7 @@ public class OuterServer {
 						protected void initChannel(SocketChannel ch) throws Exception {
 							// 添加对象解码器 负责对序列化POJO对象进行解码 设置对象序列化最大长度为1M 防止内存溢出
 							// 设置线程安全的WeakReferenceMap对类加载器进行缓存 支持多线程并发访问 防止内存溢出
+							// Integer.MAX_VALUE,
 							ch.pipeline().addLast(
 									new ObjectDecoder(1024 * 1024, ClassResolvers.weakCachingConcurrentResolver(this
 											.getClass().getClassLoader())));

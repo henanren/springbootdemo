@@ -1,8 +1,8 @@
 package com.laomn.test;
 
 import io.netty.buffer.ByteBuf;
-import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelInboundHandlerAdapter;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -18,7 +18,7 @@ import org.dom4j.io.SAXReader;
  * 
  * @author xwalker
  */
-public class JDClientHandler extends ChannelHandlerAdapter {
+public class JDClientHandler extends ChannelInboundHandlerAdapter {
 
 	/**
 	 * 链路链接成功
