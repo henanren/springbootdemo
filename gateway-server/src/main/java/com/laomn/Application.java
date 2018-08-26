@@ -2,18 +2,18 @@ package com.laomn;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.laomn.mq.sender.MsgSender;
+import com.laomn.utils.PropertieUtils;
 
 //@ServletComponentScan
 @SpringBootApplication
 public class Application {
 	private static final Logger logger = LoggerFactory.getLogger(Application.class);
 
-	@Autowired
+	// @Autowired
 	private MsgSender msgSender;
 
 	// @PostConstruct
@@ -32,6 +32,7 @@ public class Application {
 		// SpringUtils.getBean(OuterServer.class).init();
 
 		logger.info("============= SpringBoot Start Success =============");
+		System.out.println(PropertieUtils.getValueFromZhou_PClog("log4j.appender.TCPINFO.File"));
 	}
 
 }

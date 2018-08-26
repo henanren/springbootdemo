@@ -14,9 +14,6 @@ import io.netty.handler.codec.serialization.ObjectEncoder;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
 import javax.annotation.PostConstruct;
 
 import org.slf4j.Logger;
@@ -33,9 +30,10 @@ public class CustomerClient {
 		try {
 			// 配置客户端启动辅助类
 			Bootstrap b = new Bootstrap();
+			// .option(ChannelOption.SO_KEEPALIVE, true)
 			b.group(group).channel(NioSocketChannel.class).option(ChannelOption.SO_BACKLOG, 1024 * 1024)
-					.option(ChannelOption.TCP_NODELAY, true).option(ChannelOption.SO_KEEPALIVE, true)
-					.handler(new LoggingHandler(LogLevel.INFO)).handler(new ChannelInitializer<SocketChannel>() {
+					.option(ChannelOption.TCP_NODELAY, true).handler(new LoggingHandler(LogLevel.INFO))
+					.handler(new ChannelInitializer<SocketChannel>() {
 						@Override
 						protected void initChannel(SocketChannel ch) throws Exception {
 							// 添加POJO对象解码器 禁止缓存类加载器
@@ -69,15 +67,16 @@ public class CustomerClient {
 	}
 
 	public static void main(String[] args) throws Throwable {
-
-		ExecutorService executors = Executors.newCachedThreadPool();
-		SleepTread mSleepTread;
-		for (int i = 0; i < 1; i++) {
-			mSleepTread = new SleepTread();
-			executors.execute(mSleepTread);
-			Thread.sleep(10);
-		}
-		executors.shutdown();
+		new CustomerClient().connect(8000, "127.0.0.1");
+		// new CustomerClient().connect(8000, "127.0.0.1");
+		// ExecutorService executors = Executors.newCachedThreadPool();
+		// SleepTread mSleepTread;
+		// for (int i = 0; i < 2; i++) {
+		// mSleepTread = new SleepTread();
+		// executors.execute(mSleepTread);
+		// Thread.sleep(10);
+		// }
+		// executors.shutdown();
 	}
 
 	static class SleepTread extends Thread {

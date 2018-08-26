@@ -49,11 +49,11 @@ public class OuterServer {
 			// // 保持连接
 			// bootstrap.childOption(ChannelOption.SO_KEEPALIVE, true);
 			// // 服务器辅助启动类配置
+			// option(ChannelOption.SO_KEEPALIVE, true).
 			ServerBootstrap b = new ServerBootstrap();
 			b.group(bossGroup, workerGroup).channel(NioServerSocketChannel.class)
 					.option(ChannelOption.SO_BACKLOG, 1024 * 1024).option(ChannelOption.TCP_NODELAY, true)
-					.option(ChannelOption.SO_KEEPALIVE, true).handler(new LoggingHandler(LogLevel.INFO))
-					.childHandler(new ChannelInitializer<SocketChannel>() {
+					.handler(new LoggingHandler(LogLevel.INFO)).childHandler(new ChannelInitializer<SocketChannel>() {
 						@Override
 						protected void initChannel(SocketChannel ch) throws Exception {
 							// 添加对象解码器 负责对序列化POJO对象进行解码 设置对象序列化最大长度为1M 防止内存溢出
@@ -69,7 +69,10 @@ public class OuterServer {
 							// new
 							// io.netty.handler.codec.string.StringEncoder(java.nio.charset.Charset
 							// .forName("utf-8")));
-							ch.pipeline().addLast(outerServerhandler); // 客户端触发操作
+							ch.pipeline().addLast(outerServerhandler); //
+							// 客户端触发操作
+							// ch.pipeline().addLast(new OuterServerhandler());
+							// // 客户端触发操作
 							// ch.pipeline().addLast(new ByteArrayEncoder());
 						}
 					});
@@ -112,6 +115,7 @@ public class OuterServer {
 					logger.error(e.getMessage());
 				}
 			}
+
 		};
 		new Thread(run).start();
 
@@ -119,5 +123,13 @@ public class OuterServer {
 
 	@Value("${outer.server.port}")
 	private int port;
+
+	public void bind() {
+		try {
+			bind(port);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 }

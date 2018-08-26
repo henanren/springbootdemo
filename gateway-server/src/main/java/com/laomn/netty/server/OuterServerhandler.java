@@ -1,5 +1,7 @@
 package com.laomn.netty.server;
 
+import io.netty.channel.Channel;
+import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 
@@ -13,6 +15,7 @@ import com.laomn.msg.Msg;
 import com.laomn.utils.Constants;
 
 @Component
+@Sharable
 public class OuterServerhandler extends ChannelInboundHandlerAdapter {
 	// ChannelHandlerAdapter
 	private static final Logger logger = LoggerFactory.getLogger(OuterServerhandler.class);
@@ -46,6 +49,7 @@ public class OuterServerhandler extends ChannelInboundHandlerAdapter {
 		}
 		// MQ
 		msgSender.send(mssg.getBody());
+		// ctx.writeAndFlush(1);
 
 	}
 
@@ -92,7 +96,10 @@ public class OuterServerhandler extends ChannelInboundHandlerAdapter {
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
 		super.exceptionCaught(ctx, cause);
-		cause.printStackTrace();
-		ctx.close();
+		// cause.printStackTrace();
+		// ctx.close();
+		Channel channel = ctx.channel();
+		if (channel.isActive())
+			ctx.close();
 	}
 }

@@ -1,6 +1,7 @@
 package com.laomn.customer;
 
 import io.netty.buffer.ByteBuf;
+import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 
@@ -13,7 +14,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.laomn.msg.Msg;
-import com.laomn.utils.MsgUtils;
 
 public class CustomerClientHandler extends ChannelInboundHandlerAdapter {
 	private static final Logger logger = LoggerFactory.getLogger(CustomerClientHandler.class);
@@ -21,8 +21,8 @@ public class CustomerClientHandler extends ChannelInboundHandlerAdapter {
 	/**
 	 * 链路链接成功
 	 */
-	@Override
-	public void channelActive(ChannelHandlerContext ctx) throws Exception {
+	// @Override
+	public void channelActive1(ChannelHandlerContext ctx) throws Exception {
 		super.channelActive(ctx);
 		logger.info("客户端与服务端通道-开启：" + ctx.channel().localAddress() + "channelActive");
 		// ctx.writeAndFlush(toXml());
@@ -40,7 +40,16 @@ public class CustomerClientHandler extends ChannelInboundHandlerAdapter {
 				in.close();
 		}
 
-		String sSendMsg = MsgUtils.doAddBaseMsgHeader(buf);
+		String sSendMsg = "qqqqqqq";// MsgUtils.doAddBaseMsgHeader(buf);
+		Msg mssg = new Msg();
+		mssg.setBody(sSendMsg);
+		ctx.writeAndFlush(mssg);
+		logger.error("CustomerClientHandler : " + sSendMsg);
+	}
+
+	@Override
+	public void channelActive(ChannelHandlerContext ctx) throws Exception {
+		String sSendMsg = "qqqqqqq";// MsgUtils.doAddBaseMsgHeader(buf);
 		Msg mssg = new Msg();
 		mssg.setBody(sSendMsg);
 		ctx.writeAndFlush(mssg);
@@ -50,7 +59,8 @@ public class CustomerClientHandler extends ChannelInboundHandlerAdapter {
 	@Override
 	public void channelInactive(ChannelHandlerContext ctx) throws Exception {
 		super.channelInactive(ctx);
-		logger.info("客户端与服务端通道-关闭：" + ctx.channel().localAddress() + "channelInactive");
+		// logger.info("客户端与服务端通道-关闭：" + ctx.channel().localAddress() +
+		// "channelInactive");
 	}
 
 	@Override
@@ -78,11 +88,14 @@ public class CustomerClientHandler extends ChannelInboundHandlerAdapter {
 		}
 	}
 
-	@Override
-	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+	// @Override
+	public void exceptionCaught1(ChannelHandlerContext ctx, Throwable cause) throws Exception {
 		super.exceptionCaught(ctx, cause);
-		cause.printStackTrace();
-		ctx.close();
+		// cause.printStackTrace();
+		// ctx.close();
+		Channel channel = ctx.channel();
+		if (channel.isActive())
+			ctx.close();
 	}
 
 }
