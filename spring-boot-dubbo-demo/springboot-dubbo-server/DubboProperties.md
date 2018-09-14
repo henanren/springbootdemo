@@ -1,57 +1,57 @@
-## Dubbo é…ç½®
-# æ‰«æåŒ…è·¯å¾„
+## Dubbo ÅäÖÃ
+# É¨Ãè°üÂ·¾¶
 <br>spring.dubbo.scan=org.<br>spring.<br>springboot.dubbo
 
-## Dubbo åº”ç”¨é…ç½®
-// åº”ç”¨åç§°
+## Dubbo Ó¦ÓÃÅäÖÃ
+// Ó¦ÓÃÃû³Æ
 <br>spring.dubbo.application.name=xxx
 
-// æ¨¡å—ç‰ˆæœ¬
+// Ä£¿é°æ±¾
 <br>spring.dubbo.application.version=xxx
 
-// åº”ç”¨è´Ÿè´£äºº
+// Ó¦ÓÃ¸ºÔğÈË
 <br>spring.dubbo.application.owner=xxx
 
-// ç»„ç»‡å(BUæˆ–éƒ¨é—¨)
+// ×éÖ¯Ãû(BU»ò²¿ÃÅ)
 <br>spring.dubbo.application.organization=xxx
 
-// åˆ†å±‚
+// ·Ö²ã
 <br>spring.dubbo.application.architecture=xxx
 
-// ç¯å¢ƒï¼Œå¦‚ï¼šdev/test/run
+// »·¾³£¬Èç£ºdev/test/run
 <br>spring.dubbo.application.environment=xxx
 
-// Javaä»£ç ç¼–è¯‘å™¨
+// Java´úÂë±àÒëÆ÷
 <br>spring.dubbo.application.compiler=xxx
 
-// æ—¥å¿—è¾“å‡ºæ–¹å¼
+// ÈÕÖ¾Êä³ö·½Ê½
 <br>spring.dubbo.application.logger=xxx
 
-// æ³¨å†Œä¸­å¿ƒ 0
+// ×¢²áÖĞĞÄ 0
 <br>spring.dubbo.application.registries[0].address=zookeeper://127.0.0.1:2181=xxx
-// æ³¨å†Œä¸­å¿ƒ 1
+// ×¢²áÖĞĞÄ 1
 <br>spring.dubbo.application.registries[1].address=zookeeper://127.0.0.1:2181=xxx
 
-// æœåŠ¡ç›‘æ§
+// ·şÎñ¼à¿Ø
 <br>spring.dubbo.application.monitor.address=xxx
 
-## Dubbo æ³¨å†Œä¸­å¿ƒé…ç½®ç±»
-// æ³¨å†Œä¸­å¿ƒåœ°å€
+## Dubbo ×¢²áÖĞĞÄÅäÖÃÀà
+// ×¢²áÖĞĞÄµØÖ·
 <br>spring.dubbo.application.registries.address=xxx
 
-// æ³¨å†Œä¸­å¿ƒç™»å½•ç”¨æˆ·å
+// ×¢²áÖĞĞÄµÇÂ¼ÓÃ»§Ãû
 <br>spring.dubbo.application.registries.username=xxx
 
-// æ³¨å†Œä¸­å¿ƒç™»å½•å¯†ç 
+// ×¢²áÖĞĞÄµÇÂ¼ÃÜÂë
 <br>spring.dubbo.application.registries.password=xxx
 
-// æ³¨å†Œä¸­å¿ƒç¼ºçœç«¯å£
+// ×¢²áÖĞĞÄÈ±Ê¡¶Ë¿Ú
 <br>spring.dubbo.application.registries.port=xxx
 
-// æ³¨å†Œä¸­å¿ƒåè®®
+// ×¢²áÖĞĞÄĞ­Òé
 <br>spring.dubbo.application.registries.protocol=xxx
 
-// å®¢æˆ·ç«¯å®ç°
+// ¿Í»§¶ËÊµÏÖ
 <br>spring.dubbo.application.registries.transporter=xxx
 
 <br>spring.dubbo.application.registries.server=xxx
@@ -64,110 +64,111 @@
 
 <br>spring.dubbo.application.registries.version=xxx
 
-// æ³¨å†Œä¸­å¿ƒè¯·æ±‚è¶…æ—¶æ—¶é—´(æ¯«ç§’)
+// ×¢²áÖĞĞÄÇëÇó³¬Ê±Ê±¼ä(ºÁÃë)
 <br>spring.dubbo.application.registries.timeout=xxx
 
-// æ³¨å†Œä¸­å¿ƒä¼šè¯è¶…æ—¶æ—¶é—´(æ¯«ç§’)
+// ×¢²áÖĞĞÄ»á»°³¬Ê±Ê±¼ä(ºÁÃë)
 <br>spring.dubbo.application.registries.session=xxx
 
-// åŠ¨æ€æ³¨å†Œä¸­å¿ƒåˆ—è¡¨å­˜å‚¨æ–‡ä»¶
+// ¶¯Ì¬×¢²áÖĞĞÄÁĞ±í´æ´¢ÎÄ¼ş
 <br>spring.dubbo.application.registries.file=xxx
 
-// åœæ­¢æ—¶ç­‰å€™å®Œæˆé€šçŸ¥æ—¶é—´
+// Í£Ö¹Ê±µÈºòÍê³ÉÍ¨ÖªÊ±¼ä
 <br>spring.dubbo.application.registries.wait=xxx
 
-// å¯åŠ¨æ—¶æ£€æŸ¥æ³¨å†Œä¸­å¿ƒæ˜¯å¦å­˜åœ¨
+// Æô¶¯Ê±¼ì²é×¢²áÖĞĞÄÊÇ·ñ´æÔÚ
 <br>spring.dubbo.application.registries.check=xxx
 
-// åœ¨è¯¥æ³¨å†Œä¸­å¿ƒä¸Šæ³¨å†Œæ˜¯åŠ¨æ€çš„è¿˜æ˜¯é™æ€çš„æœåŠ¡
+// ÔÚ¸Ã×¢²áÖĞĞÄÉÏ×¢²áÊÇ¶¯Ì¬µÄ»¹ÊÇ¾²Ì¬µÄ·şÎñ
 <br>spring.dubbo.application.registries.dynamic=xxx
 
-// åœ¨è¯¥æ³¨å†Œä¸­å¿ƒä¸ŠæœåŠ¡æ˜¯å¦æš´éœ²
+// ÔÚ¸Ã×¢²áÖĞĞÄÉÏ·şÎñÊÇ·ñ±©Â¶
 <br>spring.dubbo.application.registries.register=xxx
 
-// åœ¨è¯¥æ³¨å†Œä¸­å¿ƒä¸ŠæœåŠ¡æ˜¯å¦å¼•ç”¨
+// ÔÚ¸Ã×¢²áÖĞĞÄÉÏ·şÎñÊÇ·ñÒıÓÃ
 <br>spring.dubbo.application.registries.subscribe=xxx
 
 
-## Dubbo æœåŠ¡åè®®é…ç½®
+## Dubbo ·şÎñĞ­ÒéÅäÖÃ
 
 
-// æœåŠ¡åè®®
+// ·şÎñĞ­Òé
 <br>spring.dubbo.application.protocol.name=xxx
 
-// æœåŠ¡IPåœ°å€(å¤šç½‘å¡æ—¶ä½¿ç”¨)
+// ·şÎñIPµØÖ·(¶àÍø¿¨Ê±Ê¹ÓÃ)
 <br>spring.dubbo.application.protocol.host=xxx
 
-// æœåŠ¡ç«¯å£
+// ·şÎñ¶Ë¿Ú
 <br>spring.dubbo.application.protocol.port=xxx
 
-// ä¸Šä¸‹æ–‡è·¯å¾„
+// ÉÏÏÂÎÄÂ·¾¶
 <br>spring.dubbo.application.protocol.contextpath=xxx
 
-// çº¿ç¨‹æ± ç±»å‹
+// Ïß³Ì³ØÀàĞÍ
 <br>spring.dubbo.application.protocol.threadpool=xxx
 
-// çº¿ç¨‹æ± å¤§å°(å›ºå®šå¤§å°)
+// Ïß³Ì³Ø´óĞ¡(¹Ì¶¨´óĞ¡)
 <br>spring.dubbo.application.protocol.threads=xxx
 
-// IOçº¿ç¨‹æ± å¤§å°(å›ºå®šå¤§å°)
+// IOÏß³Ì³Ø´óĞ¡(¹Ì¶¨´óĞ¡)
 <br>spring.dubbo.application.protocol.iothreads=xxx
 
-// çº¿ç¨‹æ± é˜Ÿåˆ—å¤§å°
+// Ïß³Ì³Ø¶ÓÁĞ´óĞ¡
 <br>spring.dubbo.application.protocol.queues=xxx
 
-// æœ€å¤§æ¥æ”¶è¿æ¥æ•°
+// ×î´ó½ÓÊÕÁ¬½ÓÊı
 <br>spring.dubbo.application.protocol.accepts=xxx
 
-// åè®®ç¼–ç 
+// Ğ­Òé±àÂë
 <br>spring.dubbo.application.protocol.codec=xxx
 
-// åºåˆ—åŒ–æ–¹å¼
+// ĞòÁĞ»¯·½Ê½
 <br>spring.dubbo.application.protocol.serialization=xxx
 
-// å­—ç¬¦é›†
+// ×Ö·û¼¯
 <br>spring.dubbo.application.protocol.charset=xxx
 
-// æœ€å¤§è¯·æ±‚æ•°æ®é•¿åº¦
+// ×î´óÇëÇóÊı¾İ³¤¶È
 <br>spring.dubbo.application.protocol.payload=xxx
 
-// ç¼“å­˜åŒºå¤§å°
+// »º´æÇø´óĞ¡
 <br>spring.dubbo.application.protocol.buffer=xxx
 
-// å¿ƒè·³é—´éš”
+// ĞÄÌø¼ä¸ô
 <br>spring.dubbo.application.protocol.heartbeat=xxx
 
-// è®¿é—®æ—¥å¿—
+// ·ÃÎÊÈÕÖ¾
 <br>spring.dubbo.application.protocol.accesslog=xxx
 
-// ç½‘ç»œä¼ è¾“æ–¹å¼
+// ÍøÂç´«Êä·½Ê½
 <br>spring.dubbo.application.protocol.transporter=xxx
 
-// ä¿¡æ¯äº¤æ¢æ–¹å¼
+// ĞÅÏ¢½»»»·½Ê½
 <br>spring.dubbo.application.protocol.exchanger=xxx
 
-// ä¿¡æ¯çº¿ç¨‹æ¨¡å‹æ´¾å‘æ–¹å¼
+// ĞÅÏ¢Ïß³ÌÄ£ĞÍÅÉ·¢·½Ê½
 <br>spring.dubbo.application.protocol.dispatcher=xxx
 
-// å¯¹ç§°ç½‘ç»œç»„ç½‘æ–¹å¼
+// ¶Ô³ÆÍøÂç×éÍø·½Ê½
 <br>spring.dubbo.application.protocol.networker=xxx
 
-// æœåŠ¡å™¨ç«¯å®ç°
+// ·şÎñÆ÷¶ËÊµÏÖ
 <br>spring.dubbo.application.protocol.server=xxx
 
-// å®¢æˆ·ç«¯å®ç°
+// ¿Í»§¶ËÊµÏÖ
 <br>spring.dubbo.application.protocol.client=xxx
 
-// æ”¯æŒçš„telnetå‘½ä»¤ï¼Œå¤šä¸ªå‘½ä»¤ç”¨é€—å·åˆ†éš”
+// Ö§³ÖµÄtelnetÃüÁî£¬¶à¸öÃüÁîÓÃ¶ººÅ·Ö¸ô
 <br>spring.dubbo.application.protocol.telnet=xxx
 
-// å‘½ä»¤è¡Œæç¤ºç¬¦
+// ÃüÁîĞĞÌáÊ¾·û
 <br>spring.dubbo.application.protocol.prompt=xxx
 
-// statusæ£€æŸ¥
+// status¼ì²é
 <br>spring.dubbo.application.protocol.status=xxx
 
-// æ˜¯å¦æ³¨å†Œ
+// ÊÇ·ñ×¢²á
 <br>spring.dubbo.application.protocol.status=xxx
+
 
 
