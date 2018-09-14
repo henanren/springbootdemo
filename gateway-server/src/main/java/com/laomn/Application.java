@@ -27,6 +27,8 @@ public class Application {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+
+		System.setProperty("java.io.tmpdir", "D:\\eclipse-jee-luna-SR2-win32-x86_64\\eclipse\\ttttt");
 		SpringApplication.run(Application.class, args);
 
 		// SpringUtils.getBean(OuterServer.class).init();

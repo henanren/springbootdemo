@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.laomn.mq.sender.MsgSender;
-import com.laomn.msg.Msg;
 import com.laomn.utils.Constants;
 
 @Component
@@ -25,11 +24,12 @@ public class OuterServerhandler extends ChannelInboundHandlerAdapter {
 	@Override
 	public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
 		super.channelRead(ctx, msg);
-		logger.info("OuterServerhandler服务器收到连接的数据为msg: " + msg.toString());
-		Msg mssg = (Msg) msg;
+		// System.out.println(
+		System.out.println("OuterServerhandler服务器收到连接的数据为msg: " + msg.toString());
+		// Msg mssg = (Msg) msg;
 		// ByteBuf buf = (ByteBuf) mssg.get;
 		// String rev = MsgUtils.getMessage(buf);
-		logger.info(" OuterServerhandler服务器收到连接的数据为rev :  " + mssg.getBody());
+		// System.out.println(" OuterServerhandler服务器收到连接的数据为rev :  " + msg);
 		// 第一次握手
 		// if (Constants.CUSTOMER_CLIENT_TO_OUTER_SERVER_SEND.equals(rev)) {
 		// ctx.writeAndFlush(Constants.CUSTOMER_CLIENT_TO_OUTER_SERVER_RECEIVE);
@@ -48,7 +48,7 @@ public class OuterServerhandler extends ChannelInboundHandlerAdapter {
 			ctx.writeAndFlush(1);
 		}
 		// MQ
-		msgSender.send(mssg.getBody());
+		msgSender.send(msg.toString());
 		// ctx.writeAndFlush(1);
 
 	}
@@ -77,7 +77,7 @@ public class OuterServerhandler extends ChannelInboundHandlerAdapter {
 	@Override
 	public void channelActive(ChannelHandlerContext ctx) throws Exception {
 		super.channelActive(ctx);
-		logger.info(ctx.channel().localAddress().toString() + " channelActive");
+		System.out.println(ctx.channel().localAddress().toString() + " channelActive");
 	}
 
 	/*
@@ -90,7 +90,7 @@ public class OuterServerhandler extends ChannelInboundHandlerAdapter {
 	@Override
 	public void channelInactive(ChannelHandlerContext ctx) throws Exception {
 		super.channelInactive(ctx);
-		logger.info(ctx.channel().localAddress().toString() + " channelInactive");
+		System.out.println(ctx.channel().localAddress().toString() + " channelInactive");
 	}
 
 	@Override

@@ -9,9 +9,6 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import io.netty.handler.codec.serialization.ClassResolvers;
-import io.netty.handler.codec.serialization.ObjectDecoder;
-import io.netty.handler.codec.serialization.ObjectEncoder;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 
@@ -59,21 +56,25 @@ public class OuterServer {
 							// 添加对象解码器 负责对序列化POJO对象进行解码 设置对象序列化最大长度为1M 防止内存溢出
 							// 设置线程安全的WeakReferenceMap对类加载器进行缓存 支持多线程并发访问 防止内存溢出
 							// Integer.MAX_VALUE,
-							ch.pipeline().addLast(
-									new ObjectDecoder(1024 * 1024, ClassResolvers.weakCachingConcurrentResolver(this
-											.getClass().getClassLoader())));
-							// 添加对象编码器 在服务器对外发送消息的时候自动将实现序列化的POJO对象编码
-							ch.pipeline().addLast(new ObjectEncoder());
-
 							// ch.pipeline().addLast(
-							// new
-							// io.netty.handler.codec.string.StringEncoder(java.nio.charset.Charset
-							// .forName("utf-8")));
-							ch.pipeline().addLast(outerServerhandler); //
+							// new ObjectDecoder(Integer.MAX_VALUE,
+							// ClassResolvers
+							// .weakCachingConcurrentResolver(this.getClass().getClassLoader())));
+							// 添加对象编码器 在服务器对外发送消息的时候自动将实现序列化的POJO对象编码
+							// ch.pipeline().addLast(new ObjectEncoder());
+
+							ch.pipeline().addLast(
+									new io.netty.handler.codec.string.StringDecoder(java.nio.charset.Charset
+											.forName("utf-8")));
+							ch.pipeline().addLast(
+									new io.netty.handler.codec.string.StringEncoder(java.nio.charset.Charset
+											.forName("utf-8")));
+							//
 							// 客户端触发操作
 							// ch.pipeline().addLast(new OuterServerhandler());
 							// // 客户端触发操作
 							// ch.pipeline().addLast(new ByteArrayEncoder());
+							ch.pipeline().addLast(outerServerhandler);
 						}
 					});
 			// 绑定端口 同步等待绑定成功
