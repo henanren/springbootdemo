@@ -1,4 +1,4 @@
-package org.spring.springboot.domain;
+package com.laomn.entites;
 
 import java.io.Serializable;
 
