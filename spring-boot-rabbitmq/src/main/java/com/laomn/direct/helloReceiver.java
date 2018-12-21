@@ -11,9 +11,9 @@ import org.springframework.stereotype.Component;
  * @author yanpenglei
  * @create 2017-10-25 0:47
  **/
-//@Component
-//@RabbitListener(queues = "hello")
-public class HelloReceiver {
+@Component
+@RabbitListener(queues = "hello")
+public class helloReceiver {
 
     @RabbitHandler
     public void process(String message) {
