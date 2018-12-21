@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
  **/
 //@Component
 //@RabbitListener(queues = "hello")
-public class helloReceiver {
+public class HelloReceiver {
 
     @RabbitHandler
     public void process(String message) {
