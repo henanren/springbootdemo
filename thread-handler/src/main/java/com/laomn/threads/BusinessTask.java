@@ -3,6 +3,7 @@ package com.laomn.threads;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.laomn.monitor.MonitorController;
 import com.laomn.mq.sender.MsgSender;
 
 public class BusinessTask extends Thread {
@@ -22,7 +23,9 @@ public class BusinessTask extends Thread {
 			logger.error("BusinessTask : " + msg);
 			// TODO 调用业务代码
 
+			MonitorController.waits.getAndDecrement();
 			msgSender.send(msg);
+			MonitorController.finishs.addAndGet(1);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

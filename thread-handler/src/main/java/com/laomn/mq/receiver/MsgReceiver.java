@@ -7,6 +7,7 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.laomn.monitor.MonitorController;
 import com.laomn.mq.sender.MsgSender;
 import com.laomn.threads.BusinessTask;
 import com.laomn.threads.ThreadPool;
@@ -22,6 +23,7 @@ public class MsgReceiver {
 
 	@RabbitHandler
 	public void process(String msg) {
+		MonitorController.waits.addAndGet(1);
 		logger.error("Receiver  : " + msg);
 		ThreadPool.POOL.execute(new BusinessTask(msg, msgSender));
 		// msgSender.send(msg);

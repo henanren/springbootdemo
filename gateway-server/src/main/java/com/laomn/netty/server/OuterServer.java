@@ -108,7 +108,6 @@ public class OuterServer {
 	public void init() {
 		Runnable run = new Runnable() {
 			public void run() {
-				System.err.println("outerServer    port : " + port);
 				logger.info("outerServer    port : " + port);
 				try {
 					bind(port);

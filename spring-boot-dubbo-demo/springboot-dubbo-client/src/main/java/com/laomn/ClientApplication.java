@@ -1,10 +1,9 @@
 package com.laomn;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ConfigurableApplicationContext;
+import java.util.ArrayList;
+import java.util.List;
 
-import com.laomn.dubbo.CityDubboConsumerService;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
  * Spring Boot 应用启动类
@@ -16,8 +15,24 @@ import com.laomn.dubbo.CityDubboConsumerService;
 public class ClientApplication {
 
 	public static void main(String[] args) {
-		ConfigurableApplicationContext run = SpringApplication.run(ClientApplication.class, args);
-		CityDubboConsumerService cityService = run.getBean(CityDubboConsumerService.class);
-		cityService.printCity();
+		// ConfigurableApplicationContext run =
+		// SpringApplication.run(ClientApplication.class, args);
+		// CityDubboConsumerService cityService =1`
+		// run.getBean(CityDubboConsumerService.class);
+		// cityService.printCity();
+		int i = 0;
+		List<Object> list = new ArrayList<Object>();
+		// long s = System.currentTimeMillis();
+		while (true) {
+			// i--;
+			// if ((System.currentTimeMillis() - s) / 1000 == 1)
+			// break;
+			list.add(new ClientApplication());
+			System.out.println(i++);
+		}
+
+		// Collections.unmodifiableList();
+		// System.out.println(i);
+
 	}
 }

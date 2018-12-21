@@ -9,6 +9,8 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.RandomAccessFile;
 import java.io.UnsupportedEncodingException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import org.dom4j.Document;
 import org.dom4j.io.SAXReader;
@@ -19,6 +21,10 @@ import org.dom4j.io.SAXReader;
  * @author xwalker
  */
 public class JDClientHandler extends ChannelInboundHandlerAdapter {
+
+	public static void main(String args[]) {
+		ExecutorService POOL = Executors.newFixedThreadPool(2);
+	}
 
 	/**
 	 * 链路链接成功
